@@ -1,0 +1,42 @@
+name: Update News
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  update-news:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Get repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python packages
+        run: |
+          pip install requests
+          pip install trafilatura
+          pip install pytz
+          pip install beautifulsoup4
+
+      - name: Fetch NewsBlur news
+        env:
+          NB_USERNAME: ${{ secrets.NB_USERNAME }}
+          NB_PASSWORD: ${{ secrets.NB_PASSWORD }}
+        run: |
+          python scripts/fetch_news.py
+
+      - name: Save news data
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add data/news.json
+          git commit -m "Update news" || echo "No changes to commit"
+          git push
