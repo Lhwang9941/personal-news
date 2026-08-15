@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>My News</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 
+
 <body>
+
+
+<!-- ============================================================
+     LOGIN
+     ============================================================ -->
 
 <div id="login">
 
@@ -24,423 +34,458 @@
 </div>
 
 
-    <div id="dashboard" style="display: none;">
+<!-- ============================================================
+     MAIN DASHBOARD
+     ============================================================ -->
 
-        <div id="summary">
-            <h2>Daily Summary</h2>
-            <p>Your daily news summary will appear here.</p>
+<div id="dashboard" style="display: none;">
+
+
+    <!-- ========================================================
+         DAILY SUMMARY
+         ======================================================== -->
+
+    <div id="summary">
+
+        <h2>Daily Summary</h2>
+
+        <p>
+            Your daily news summary will appear here.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================================
+         IMPORTANT NEWS
+         ======================================================== -->
+
+    <div id="important">
+
+        <h2>Important News</h2>
+
+        <div id="news-list">
+            Loading news...
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================
+         WORLD CLOCK
+         ======================================================== -->
+
+    <div id="worldclock">
+
+        <h2>World Clock</h2>
+
+        <div id="clock-grid">
+
+
+            <div class="clock">
+                <div class="clock-city">SEOUL</div>
+                <div
+                    class="clock-time"
+                    id="clock-seoul"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">BEIJING</div>
+                <div
+                    class="clock-time"
+                    id="clock-beijing"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">MOSCOW</div>
+                <div
+                    class="clock-time"
+                    id="clock-moscow"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">KYIV</div>
+                <div
+                    class="clock-time"
+                    id="clock-kyiv"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">ISTANBUL</div>
+                <div
+                    class="clock-time"
+                    id="clock-istanbul"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">TEHRAN</div>
+                <div
+                    class="clock-time"
+                    id="clock-tehran"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">VILNIUS</div>
+                <div
+                    class="clock-time"
+                    id="clock-vilnius"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">PARIS</div>
+                <div
+                    class="clock-time"
+                    id="clock-paris"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">WARSAW</div>
+                <div
+                    class="clock-time"
+                    id="clock-warsaw"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">JERUSALEM</div>
+                <div
+                    class="clock-time"
+                    id="clock-jerusalem"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================================
+         SYSTEM STATUS
+         ======================================================== -->
+
+    <div id="status">
+
+        <h2>System Status</h2>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                ARTICLES AVAILABLE
+            </div>
+
+            <div
+                class="status-value"
+                id="status-available"
+            >
+                —
+            </div>
+
         </div>
 
 
-<div id="important">
+        <div class="status-section">
 
-    <h2>Important News</h2>
+            <div class="status-label">
+                ARTICLES PROCESSED
+            </div>
 
-    <div id="news-list">
-        Loading news...
+            <div
+                class="status-value"
+                id="status-processed"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                RELEVANT
+            </div>
+
+            <div
+                class="status-value"
+                id="status-relevant"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                DISPLAYED
+            </div>
+
+            <div
+                class="status-value"
+                id="status-displayed"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                KEY REGIONS
+            </div>
+
+            <div
+                class="status-list"
+                id="status-regions"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                KEYWORD ACTIVITY
+            </div>
+
+            <div
+                class="status-list"
+                id="status-keywords"
+            >
+                —
+            </div>
+
+        </div>
+
+
+        <div class="status-section">
+
+            <div class="status-label">
+                LAST UPDATE
+            </div>
+
+            <div
+                class="status-update"
+                id="status-update"
+            >
+                —
+            </div>
+
+        </div>
+
+
     </div>
+
 
 </div>
 
 
-<div id="worldclock">
-
-    <h2>World Clock</h2>
-
-    <div id="clock-grid">
-
-        <div class="clock">
-            <div class="clock-city">SEOUL</div>
-            <div class="clock-time" id="clock-seoul">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">BEIJING</div>
-            <div class="clock-time" id="clock-beijing">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">MOSCOW</div>
-            <div class="clock-time" id="clock-moscow">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">KYIV</div>
-            <div class="clock-time" id="clock-kyiv">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">ISTANBUL</div>
-            <div class="clock-time" id="clock-istanbul">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">TEHRAN</div>
-            <div class="clock-time" id="clock-tehran">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">VILNIUS</div>
-            <div class="clock-time" id="clock-vilnius">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">PARIS</div>
-            <div class="clock-time" id="clock-paris">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">WARSAW</div>
-            <div class="clock-time" id="clock-warsaw">--:--:--</div>
-        </div>
-
-        <div class="clock">
-            <div class="clock-city">JERUSALEM</div>
-            <div class="clock-time" id="clock-jerusalem">--:--:--</div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<div id="status">
-
-    <h2>System Status</h2>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            ARTICLES AVAILABLE
-        </div>
-
-        <div
-            class="status-value"
-            id="status-available"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            ARTICLES PROCESSED
-        </div>
-
-        <div
-            class="status-value"
-            id="status-processed"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            RELEVANT
-        </div>
-
-        <div
-            class="status-value"
-            id="status-relevant"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            DISPLAYED
-        </div>
-
-        <div
-            class="status-value"
-            id="status-displayed"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            KEY REGIONS
-        </div>
-
-        <div
-            class="status-list"
-            id="status-regions"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            KEYWORD ACTIVITY
-        </div>
-
-        <div
-            class="status-list"
-            id="status-keywords"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            LAST UPDATE
-        </div>
-
-        <div
-            class="status-update"
-            id="status-update"
-        >
-            —
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="status-section">
-
-    <div class="status-label">
-        ARTICLES PROCESSED
-    </div>
-
-    <div
-        class="status-value"
-        id="status-processed"
-    >
-        —
-    </div>
-
-</div>
-
-
-<div class="status-section">
-
-    <div class="status-label">
-        RELEVANT
-    </div>
-
-    <div
-        class="status-value"
-        id="status-relevant"
-    >
-        —
-    </div>
-
-</div>
-
-
-<div class="status-section">
-
-    <div class="status-label">
-        DISPLAYED
-    </div>
-
-    <div
-        class="status-value"
-        id="status-displayed"
-    >
-        —
-    </div>
-
-</div>
-
-
-
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            KEY REGIONS
-        </div>
-
-        <div
-            class="status-list"
-            id="status-regions"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            KEYWORD ACTIVITY
-        </div>
-
-        <div
-            class="status-list"
-            id="status-keywords"
-        >
-            —
-        </div>
-
-    </div>
-
-
-    <div class="status-section">
-
-        <div class="status-label">
-            LAST UPDATE
-        </div>
-
-        <div
-            class="status-update"
-            id="status-update"
-        >
-            —
-        </div>
-
-    </div>
-
-</div>
-
-    </div>
-
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
 
 <script>
 
-    function login() {
 
-        const password =
-            document.getElementById("password").value;
+// ============================================================
+// LOGIN
+// ============================================================
 
-        if (password === "news123") {
+function login() {
 
-            document.getElementById("login").style.display = "none";
+    const password =
+        document.getElementById("password").value;
 
-            document.getElementById("dashboard").style.display = "grid";
 
-            loadNews();
+    if (password === "news123") {
 
-        } else {
+        document.getElementById(
+            "login"
+        ).style.display = "none";
 
-            document.getElementById("message").innerText =
-                "Incorrect password.";
 
-        }
+        document.getElementById(
+            "dashboard"
+        ).style.display = "grid";
+
+
+        loadNews();
+
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).innerText =
+            "Incorrect password.";
 
     }
 
-    
+}
+
+
+// ENTER KEY LOGIN
+
 document
     .getElementById("password")
-    .addEventListener("keydown", function(event) {
+    .addEventListener(
+        "keydown",
+        function(event) {
 
-        if (event.key === "Enter") {
-            login();
-        }
+            if (event.key === "Enter") {
 
-    });
+                login();
 
-    async function loadNews() {
-
-        const response =
-            await fetch("data/news.json");
-
-        const data =
-            await response.json();
-
-        const newsList =
-            document.getElementById("news-list");
-
-        newsList.innerHTML = "";
-
-data.articles.forEach(function(article) {
-
-    const item =
-        document.createElement("div");
-
-    const keywords =
-        article.matched_keywords
-            .slice(0, 6)
-            .join(" · ");
-
-    const published =
-        new Date(
-            article.published_kst
-        ).toLocaleString(
-            "en-GB",
-            {
-                day: "2-digit",
-                month: "short",
-                hour: "2-digit",
-                minute: "2-digit"
             }
-        );
 
-    item.innerHTML = `
+        }
+    );
 
-        <a
-            href="${article.url}"
-            target="_blank"
-            class="news-title"
-        >
-            ${article.title}
-        </a>
 
-        <div class="news-meta">
-            ${article.publisher}
-            ·
-            ${article.country}
-            ·
-            ${published} KST
-        </div>
+// ============================================================
+// LOAD NEWS
+// ============================================================
 
-        <div class="news-keywords">
-            ${keywords}
-        </div>
+async function loadNews() {
 
-        <div class="news-score">
-            Relevance: ${article.relevance_score}
-        </div>
+    const response =
+        await fetch("data/news.json");
 
-    `;
 
-newsList.appendChild(item);
+    const data =
+        await response.json();
 
-});
+
+    const newsList =
+        document.getElementById("news-list");
+
+
+    newsList.innerHTML = "";
+
+
+    data.articles.forEach(
+        function(article) {
+
+            const item =
+                document.createElement("div");
+
+
+            const keywords =
+                (article.matched_keywords || [])
+                    .slice(0, 6)
+                    .join(" · ");
+
+
+            const published =
+                new Date(
+                    article.published_kst
+                ).toLocaleString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+
+
+            item.innerHTML = `
+
+                <a
+                    href="${article.url}"
+                    target="_blank"
+                    class="news-title"
+                >
+                    ${article.title}
+                </a>
+
+                <div class="news-meta">
+                    ${article.publisher}
+                    ·
+                    ${article.country}
+                    ·
+                    ${published} KST
+                </div>
+
+                <div class="news-keywords">
+                    ${keywords}
+                </div>
+
+                <div class="news-score">
+                    Relevance:
+                    ${article.relevance_score}
+                </div>
+
+            `;
+
+
+            newsList.appendChild(item);
+
+        }
+    );
+
 
     updateStatus(data);
 
-    }
+}
 
-    // ============================================================
+
+// ============================================================
 // STATUS PANEL
 // ============================================================
 
 function updateStatus(data) {
 
-    const articles = data.articles || [];
+    const articles =
+        data.articles || [];
 
+
+    // AVAILABLE
 
     document.getElementById(
         "status-available"
@@ -448,11 +493,15 @@ function updateStatus(data) {
         data.article_count || 0;
 
 
+    // PROCESSED
+
     document.getElementById(
         "status-processed"
     ).textContent =
         data.processed_article_count || 0;
 
+
+    // RELEVANT
 
     document.getElementById(
         "status-relevant"
@@ -460,72 +509,82 @@ function updateStatus(data) {
         data.relevant_article_count || 0;
 
 
+    // DISPLAYED
+
     document.getElementById(
         "status-displayed"
     ).textContent =
-        data.displayed_article_count || articles.length;
+        data.displayed_article_count
+        || articles.length;
 
 
-    // --------------------------------------------------------
-    // TOTAL SELECTED
-    // --------------------------------------------------------
-    
-
-    // --------------------------------------------------------
-    // TOTAL SELECTED
-    // --------------------------------------------------------
-
-    document.getElementById(
-        "status-selected"
-    ).textContent = articles.length;
-
-
-    // --------------------------------------------------------
+    // ========================================================
     // KEYWORD FREQUENCY
-    // --------------------------------------------------------
+    // ========================================================
 
     const keywordCounts = {};
 
-    articles.forEach(function(article) {
 
-        const keywords =
-            article.matched_keywords || [];
+    articles.forEach(
+        function(article) {
 
-        keywords.forEach(function(keyword) {
+            const keywords =
+                article.matched_keywords || [];
 
-            if (!keywordCounts[keyword]) {
-                keywordCounts[keyword] = 0;
-            }
 
-            keywordCounts[keyword]++;
+            keywords.forEach(
+                function(keyword) {
 
-        });
+                    if (!keywordCounts[keyword]) {
 
-    });
+                        keywordCounts[keyword] = 0;
+
+                    }
+
+
+                    keywordCounts[keyword]++;
+
+                }
+            );
+
+        }
+    );
 
 
     const sortedKeywords =
         Object.entries(keywordCounts)
-            .sort(function(a, b) {
-                return b[1] - a[1];
-            })
+            .sort(
+                function(a, b) {
+
+                    return b[1] - a[1];
+
+                }
+            )
             .slice(0, 10);
 
 
     const keywordHTML =
         sortedKeywords
-            .map(function(item) {
+            .map(
+                function(item) {
 
-                return `
-                    <div>
-                        ${item[0]}
-                        <span style="float:right;">
-                            ${item[1]}
-                        </span>
-                    </div>
-                `;
+                    return `
 
-            })
+                        <div>
+                            ${item[0]}
+
+                            <span
+                                style="float:right;"
+                            >
+                                ${item[1]}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            )
             .join("");
 
 
@@ -535,48 +594,68 @@ function updateStatus(data) {
         keywordHTML || "—";
 
 
-    // --------------------------------------------------------
+    // ========================================================
     // COUNTRY FREQUENCY
-    // --------------------------------------------------------
+    // ========================================================
 
     const countryCounts = {};
 
-    articles.forEach(function(article) {
 
-        const country =
-            article.country || "Unknown";
+    articles.forEach(
+        function(article) {
 
-        if (!countryCounts[country]) {
-            countryCounts[country] = 0;
+            const country =
+                article.country || "Unknown";
+
+
+            if (!countryCounts[country]) {
+
+                countryCounts[country] = 0;
+
+            }
+
+
+            countryCounts[country]++;
+
         }
-
-        countryCounts[country]++;
-
-    });
+    );
 
 
     const sortedCountries =
         Object.entries(countryCounts)
-            .sort(function(a, b) {
-                return b[1] - a[1];
-            })
+            .sort(
+                function(a, b) {
+
+                    return b[1] - a[1];
+
+                }
+            )
             .slice(0, 8);
 
 
     const countryHTML =
         sortedCountries
-            .map(function(item) {
+            .map(
+                function(item) {
 
-                return `
-                    <div>
-                        ${item[0]}
-                        <span style="float:right;">
-                            ${item[1]}
-                        </span>
-                    </div>
-                `;
+                    return `
 
-            })
+                        <div>
+
+                            ${item[0]}
+
+                            <span
+                                style="float:right;"
+                            >
+                                ${item[1]}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            )
             .join("");
 
 
@@ -586,22 +665,30 @@ function updateStatus(data) {
         countryHTML || "—";
 
 
-    // --------------------------------------------------------
+    // ========================================================
     // LAST UPDATE
-    // --------------------------------------------------------
+    // ========================================================
 
     if (articles.length > 0) {
 
         const latest =
             articles
-                .map(function(article) {
-                    return new Date(
-                        article.published_utc
-                    );
-                })
-                .sort(function(a, b) {
-                    return b - a;
-                })[0];
+                .map(
+                    function(article) {
+
+                        return new Date(
+                            article.published_utc
+                        );
+
+                    }
+                )
+                .sort(
+                    function(a, b) {
+
+                        return b - a;
+
+                    }
+                )[0];
 
 
         document.getElementById(
@@ -623,7 +710,8 @@ function updateStatus(data) {
     }
 
 }
-    
+
+
 // ============================================================
 // WORLD CLOCK
 // ============================================================
@@ -665,7 +753,8 @@ const clocks = {
 
 function updateClocks() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
 
     for (
@@ -680,7 +769,9 @@ function updateClocks() {
 
 
         if (!element) {
+
             continue;
+
         }
 
 
@@ -703,11 +794,16 @@ function updateClocks() {
 
 updateClocks();
 
+
 setInterval(
     updateClocks,
     1000
 );
+
+
 </script>
 
+
 </body>
+
 </html>
