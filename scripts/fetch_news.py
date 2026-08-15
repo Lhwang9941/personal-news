@@ -119,19 +119,13 @@ def score_article(title, body):
 
         keyword_lower = keyword.lower()
 
-        matches = combined_text.count(
-            keyword_lower
-        )
-
-        if matches > 0:
+        if keyword_lower in combined_text:
 
             matched_keywords.append(
                 keyword
             )
 
-            score += (
-                matches * weight
-            )
+            score += weight
 
     return score, matched_keywords
 
