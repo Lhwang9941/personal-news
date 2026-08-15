@@ -98,3 +98,27 @@ body {
 body {
     overflow: hidden;
 }
+body {
+    background: #000000;
+    color: #ffffff;
+}
+
+#summary,
+#important,
+#clock,
+#status {
+    border-color: #555555;
+    background: #000000;
+}
+
+#summary h2,
+#important h2,
+#clock h2,
+#status h2 {
+    color: #ffffff;
+}
+
+#important p {
+    border-bottom-color: #333333;
+    color: #dddddd;
+}
