@@ -151,3 +151,22 @@ body {
 #important::-webkit-scrollbar-thumb {
     background: #555555;
 }
+#news-list {
+    display: block;
+}
+
+#news-list > div {
+    padding: 12px 0;
+    border-bottom: 1px solid #333333;
+}
+
+#news-list strong {
+    font-size: 14px;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+#news-list small {
+    color: #777777;
+    font-size: 11px;
+}
