@@ -115,7 +115,7 @@ def score_article(title, body):
 
     score = 0
 
-    for keyword in KEYWORDS:
+    for keyword, weight in KEYWORDS.items():
 
         keyword_lower = keyword.lower()
 
@@ -129,7 +129,9 @@ def score_article(title, body):
                 keyword
             )
 
-            score += matches
+            score += (
+                matches * weight
+            )
 
     return score, matched_keywords
 
@@ -344,13 +346,13 @@ def quick_keyword_score(story):
 
     matched = []
 
-    for keyword in KEYWORDS:
+    for keyword, weight in KEYWORDS.items():
 
         keyword_lower = keyword.lower()
 
         if keyword_lower in text:
 
-            score += 1
+            score += weight
 
             matched.append(
                 keyword
