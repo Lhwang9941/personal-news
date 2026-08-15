@@ -29,15 +29,17 @@ body {
 
 
 /* ============================================================
-   LOGIN
+   LOGIN — INTELLIGENCE TERMINAL
    ============================================================ */
 
 #login {
+
     width: 100%;
     height: 100vh;
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
 
@@ -46,81 +48,81 @@ body {
 }
 
 #login h1 {
-    margin: 0 0 8px 0;
+
+    margin: 0 0 28px 0;
 
     font-family: monospace;
 
     font-size: 22px;
     font-weight: normal;
 
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    letter-spacing: 6px;
+
+    color: #dddddd;
 }
 
 #login p {
-    margin: 0 0 24px 0;
+    display: none;
+}
+
+#password {
+
+    width: 180px;
+
+    padding: 8px 2px;
+
+    margin: 0;
+
+    background: transparent;
+
+    color: #dddddd;
+
+    border: none;
+
+    border-bottom: 1px solid #555555;
+
+    outline: none;
+
+    border-radius: 0;
+
+    font-family: monospace;
+
+    font-size: 11px;
+
+    text-align: center;
+
+    letter-spacing: 2px;
+}
+
+#password::placeholder {
+
+    color: #555555;
+
+    opacity: 1;
+}
+
+#password:focus {
+
+    border-bottom-color: #999999;
+}
+
+#login button {
+    display: none;
+}
+
+#message {
+
+    min-height: 18px;
+
+    margin-top: 12px;
 
     color: #666666;
 
     font-family: monospace;
-    font-size: 10px;
+
+    font-size: 9px;
 
     letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-#password {
-    width: 260px;
-
-    padding: 10px;
-
-    margin: 10px 0;
-
-    background: #050505;
-    color: #ffffff;
-
-    border: 1px solid #444444;
-
-    font-family: monospace;
-    font-size: 12px;
-
-    outline: none;
-}
-
-#password:focus {
-    border-color: #777777;
-}
-
-#login button {
-    padding: 10px 28px;
-
-    background: #111111;
-    color: #dddddd;
-
-    border: 1px solid #444444;
-
-    font-family: monospace;
-    font-size: 10px;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    cursor: pointer;
-}
-
-#login button:hover {
-    background: #1a1a1a;
-}
-
-#message {
-    min-height: 20px;
-
-    margin-top: 12px;
-
-    color: #777777;
-
-    font-family: monospace;
-    font-size: 10px;
 }
 
 
