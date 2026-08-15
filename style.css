@@ -492,3 +492,71 @@ body {
         min-height: 50vh;
     }
 }
+/* ============================================================
+   STATUS PANEL — INTELLIGENCE DASHBOARD
+   ============================================================ */
+
+#status {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.status-section {
+    padding: 10px 0;
+
+    border-bottom: 1px solid #242424;
+}
+
+.status-label {
+    margin-bottom: 5px;
+
+    color: #555555;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+.status-value {
+    color: #dddddd;
+
+    font-family: monospace;
+
+    font-size: 20px;
+
+    letter-spacing: 1px;
+}
+
+.status-list {
+    color: #aaaaaa;
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    line-height: 1.8;
+}
+
+.status-update {
+    color: #777777;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 0.5px;
+}
+
+#status::-webkit-scrollbar {
+    width: 5px;
+}
+
+#status::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+#status::-webkit-scrollbar-thumb {
+    background: #333333;
+}
