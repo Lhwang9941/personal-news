@@ -29,3 +29,6 @@ body {
     border: 1px solid #000;
     padding: 20px;
 }
+#important {
+    overflow-y: auto;
+}
