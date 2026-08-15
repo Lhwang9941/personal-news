@@ -32,3 +32,14 @@ body {
 #important {
     overflow-y: auto;
 }
+#summary,
+#important,
+#clock,
+#status {
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
