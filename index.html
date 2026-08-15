@@ -8,7 +8,26 @@
 
     <h1>My News</h1>
 
-    <p>My personal news dashboard.</p>
+    <p>Enter password to continue:</p>
+
+    <input type="password" id="password">
+    <button onclick="login()">Enter</button>
+
+    <p id="message"></p>
+
+    <script>
+        function login() {
+            const password = document.getElementById("password").value;
+
+            if (password === "news123") {
+                document.getElementById("message").innerText =
+                    "Password correct. Welcome.";
+            } else {
+                document.getElementById("message").innerText =
+                    "Incorrect password.";
+            }
+        }
+    </script>
 
 </body>
 </html>
