@@ -1,3 +1,7 @@
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
 * {
     box-sizing: border-box;
 }
@@ -6,18 +10,27 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     width: 100%;
     height: 100%;
+
     background: #000000;
     color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 body {
     overflow: hidden;
 }
 
-/* LOGIN */
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
 
 #login {
     width: 100%;
@@ -33,42 +46,87 @@ body {
 }
 
 #login h1 {
-    font-size: 28px;
+    margin: 0 0 8px 0;
+
+    font-family: monospace;
+
+    font-size: 22px;
     font-weight: normal;
-    margin-bottom: 30px;
+
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 #login p {
-    color: #cccccc;
+    margin: 0 0 24px 0;
+
+    color: #666666;
+
+    font-family: monospace;
+    font-size: 10px;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 #password {
     width: 260px;
+
     padding: 10px;
+
     margin: 10px 0;
 
-    background: #111111;
+    background: #050505;
     color: #ffffff;
 
-    border: 1px solid #555555;
+    border: 1px solid #444444;
+
+    font-family: monospace;
+    font-size: 12px;
+
+    outline: none;
+}
+
+#password:focus {
+    border-color: #777777;
 }
 
 #login button {
-    padding: 10px 24px;
+    padding: 10px 28px;
 
-    background: #ffffff;
-    color: #000000;
+    background: #111111;
+    color: #dddddd;
 
-    border: none;
+    border: 1px solid #444444;
+
+    font-family: monospace;
+    font-size: 10px;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
     cursor: pointer;
+}
+
+#login button:hover {
+    background: #1a1a1a;
 }
 
 #message {
     min-height: 20px;
+
+    margin-top: 12px;
+
+    color: #777777;
+
+    font-family: monospace;
+    font-size: 10px;
 }
 
 
-/* MAIN DASHBOARD */
+/* ============================================================
+   MAIN DASHBOARD
+   ============================================================ */
 
 #dashboard {
     display: grid;
@@ -83,124 +141,352 @@ body {
 }
 
 
-/* FOUR PANELS */
+/* ============================================================
+   FOUR MAIN PANELS
+   ============================================================ */
 
 #summary,
 #important,
 #clock,
+#worldclock,
 #status {
+
     min-width: 0;
     min-height: 0;
 
-    padding: 24px;
+    padding: 18px;
 
-    background: #000000;
+    background: #030303;
     color: #ffffff;
 
-    border: 1px solid #444444;
+    border: 1px solid #303030;
 }
 
 
-/* PANEL TITLES */
+/* ============================================================
+   PANEL TITLES
+   ============================================================ */
 
 #summary h2,
 #important h2,
 #clock h2,
+#worldclock h2,
 #status h2 {
-    margin: 0 0 20px 0;
 
-    font-size: 16px;
+    margin: 0 0 12px 0;
+
+    font-family: monospace;
+
+    font-size: 10px;
     font-weight: normal;
 
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
 
-    color: #ffffff;
+    color: #999999;
 }
 
 
-/* IMPORTANT NEWS */
+/* ============================================================
+   PANEL ACCENT
+   ============================================================ */
+
+#summary,
+#important,
+#worldclock,
+#status {
+
+    position: relative;
+}
+
+#summary::before,
+#important::before,
+#worldclock::before,
+#status::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 2px;
+    height: 100%;
+
+    background: #333333;
+}
+
+
+/* ============================================================
+   IMPORTANT NEWS PANEL
+   ============================================================ */
 
 #important {
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-#important p {
-    margin: 0;
-    padding: 12px 0;
-
-    border-bottom: 1px solid #333333;
-
-    color: #dddddd;
-
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-
-/* SCROLLBAR */
-
-#important::-webkit-scrollbar {
-    width: 8px;
-}
-
-#important::-webkit-scrollbar-track {
-    background: #111111;
-}
-
-#important::-webkit-scrollbar-thumb {
-    background: #555555;
-}
 #news-list {
     display: block;
 }
 
 #news-list > div {
+
     padding: 12px 0;
-    border-bottom: 1px solid #333333;
+
+    border-bottom: 1px solid #242424;
 }
 
-#news-list strong {
-    font-size: 14px;
-    font-weight: normal;
-    color: #ffffff;
-}
-
-#news-list small {
-    color: #777777;
-    font-size: 11px;
-}
 .news-title {
+
     display: block;
-    color: #ffffff;
+
+    color: #dddddd;
+
     text-decoration: none;
-    font-size: 14px;
-    line-height: 1.4;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 13px;
+    line-height: 1.45;
+
     margin-bottom: 6px;
 }
 
 .news-title:hover {
+    color: #ffffff;
     text-decoration: underline;
 }
 
 .news-meta {
-    color: #777777;
-    font-size: 10px;
+
+    color: #666666;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    line-height: 1.4;
+
     margin-bottom: 5px;
 }
 
 .news-keywords {
-    color: #999999;
-    font-size: 10px;
+
+    color: #888888;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    line-height: 1.4;
+
     margin-bottom: 4px;
 }
 
 .news-score {
+
     color: #555555;
-    font-size: 9px;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.5px;
 }
 
-#news-list > div {
-    padding: 12px 0;
-    border-bottom: 1px solid #292929;
+
+/* ============================================================
+   NEWS SCROLLBAR
+   ============================================================ */
+
+#important::-webkit-scrollbar {
+    width: 5px;
+}
+
+#important::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+#important::-webkit-scrollbar-thumb {
+    background: #333333;
+}
+
+#important::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}
+
+
+/* ============================================================
+   WORLD CLOCK
+   ============================================================ */
+
+#worldclock {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+#clock-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    border-top: 1px solid #303030;
+    border-left: 1px solid #303030;
+}
+
+.clock {
+
+    position: relative;
+
+    min-height: 48px;
+
+    padding: 9px 10px;
+
+    background: #050505;
+
+    border-right: 1px solid #303030;
+    border-bottom: 1px solid #303030;
+}
+
+.clock::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 2px;
+    height: 100%;
+
+    background: #333333;
+}
+
+.clock-city {
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    color: #666666;
+
+    margin-bottom: 5px;
+
+    text-transform: uppercase;
+}
+
+.clock-city::before {
+
+    content: "● ";
+
+    color: #444444;
+}
+
+.clock-time {
+
+    font-family: monospace;
+
+    font-size: 15px;
+
+    letter-spacing: 1px;
+
+    color: #dddddd;
+}
+
+
+/* ============================================================
+   STATUS PANEL
+   ============================================================ */
+
+#status {
+
+    font-family: monospace;
+
+    color: #999999;
+}
+
+#status p {
+
+    color: #777777;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   SUMMARY PANEL
+   ============================================================ */
+
+#summary {
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#summary p {
+
+    color: #bbbbbb;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+#summary::-webkit-scrollbar {
+    width: 5px;
+}
+
+#summary::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+#summary::-webkit-scrollbar-thumb {
+    background: #333333;
+}
+
+
+/* ============================================================
+   MOBILE / SMALL SCREENS
+   ============================================================ */
+
+@media (max-width: 800px) {
+
+    #dashboard {
+
+        grid-template-columns: 1fr;
+
+        grid-template-rows:
+            1fr
+            1fr
+            1fr
+            1fr;
+
+        height: auto;
+        min-height: 100vh;
+
+        overflow-y: auto;
+    }
+
+    #summary,
+    #important,
+    #worldclock,
+    #status {
+
+        min-height: 50vh;
+    }
 }
