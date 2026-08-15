@@ -108,20 +108,68 @@
 
     <h2>System Status</h2>
 
-    <div class="status-section">
+<div class="status-section">
 
-        <div class="status-label">
-            NEWS PROCESSED
-        </div>
-
-        <div
-            class="status-value"
-            id="status-processed"
-        >
-            —
-        </div>
-
+    <div class="status-label">
+        ARTICLES AVAILABLE
     </div>
+
+    <div
+        class="status-value"
+        id="status-available"
+    >
+        —
+    </div>
+
+</div>
+
+
+<div class="status-section">
+
+    <div class="status-label">
+        ARTICLES PROCESSED
+    </div>
+
+    <div
+        class="status-value"
+        id="status-processed"
+    >
+        —
+    </div>
+
+</div>
+
+
+<div class="status-section">
+
+    <div class="status-label">
+        RELEVANT
+    </div>
+
+    <div
+        class="status-value"
+        id="status-relevant"
+    >
+        —
+    </div>
+
+</div>
+
+
+<div class="status-section">
+
+    <div class="status-label">
+        DISPLAYED
+    </div>
+
+    <div
+        class="status-value"
+        id="status-displayed"
+    >
+        —
+    </div>
+
+</div>
 
 
     <div class="status-section">
@@ -306,6 +354,36 @@ newsList.appendChild(item);
 function updateStatus(data) {
 
     const articles = data.articles || [];
+
+
+    document.getElementById(
+        "status-available"
+    ).textContent =
+        data.article_count || 0;
+
+
+    document.getElementById(
+        "status-processed"
+    ).textContent =
+        data.processed_article_count || 0;
+
+
+    document.getElementById(
+        "status-relevant"
+    ).textContent =
+        data.relevant_article_count || 0;
+
+
+    document.getElementById(
+        "status-displayed"
+    ).textContent =
+        data.displayed_article_count || articles.length;
+
+
+    // --------------------------------------------------------
+    // TOTAL SELECTED
+    // --------------------------------------------------------
+    
 
     // --------------------------------------------------------
     // TOTAL SELECTED
