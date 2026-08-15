@@ -23,7 +23,7 @@ def load_keywords():
 
         config = json.load(file)
 
-    return config.get("topics", [])
+    return config.get("topics", {})
 
 
 KEYWORDS = load_keywords()
