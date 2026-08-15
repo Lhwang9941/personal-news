@@ -320,16 +320,131 @@ KST = pytz.timezone(
 )
 
 
+# ============================================================
+# FIRST FILTER
+# ============================================================
+
+def quick_keyword_score(story):
+
+    title = story.get(
+        "story_title",
+        ""
+    )
+
+    content = story.get(
+        "story_content",
+        ""
+    )
+
+    text = (
+        title + " " + content
+    ).lower()
+
+    score = 0
+
+    matched = []
+
+    for keyword in KEYWORDS:
+
+        keyword_lower = keyword.lower()
+
+        if keyword_lower in text:
+
+            score += 1
+
+            matched.append(
+                keyword
+            )
+
+    return score, matched
+
+
+candidates = []
+
+
+print(
+    "Running initial keyword filter..."
+)
+
+
+for story in ALL_SELECTED:
+
+    score, matched = (
+        quick_keyword_score(
+            story
+        )
+    )
+
+    if score > 0:
+
+        candidates.append({
+
+            "story": story,
+
+            "quick_score": score,
+
+            "quick_keywords": matched
+
+        })
+
+
+print()
+
+print(
+    f"Keyword filter found "
+    f"{len(candidates)} relevant candidates."
+)
+
+print()
+
+
+# ============================================================
+# LIMIT EXPENSIVE SCRAPING
+# ============================================================
+
+MAX_CANDIDATES = 300
+
+
+candidates.sort(
+
+    key=lambda item:
+        item["quick_score"],
+
+    reverse=True
+
+)
+
+
+candidates = candidates[
+    :MAX_CANDIDATES
+]
+
+
+print(
+    f"Will fully scrape "
+    f"{len(candidates)} articles."
+)
+
+print()
+
+
+# ============================================================
+# FULL ARTICLE PROCESSING
+# ============================================================
+
 processed_articles = []
 
 
-for index, story in enumerate(
+for index, candidate in enumerate(
 
-    ALL_SELECTED,
+    candidates,
 
     start=1
 
 ):
+
+    story = candidate["story"]
+
 
     title = story.get(
 
@@ -406,7 +521,7 @@ for index, story in enumerate(
 
     print(
 
-        f"[{index}/{len(ALL_SELECTED)}] "
+        f"[{index}/{len(candidates)}] "
         f"{title}"
 
     )
@@ -421,10 +536,6 @@ for index, story in enumerate(
 
         body = title
 
-
-    # --------------------------------------------------------
-    # KEYWORD ANALYSIS
-    # --------------------------------------------------------
 
     relevance_score, matched_keywords = (
         score_article(
@@ -472,7 +583,7 @@ for index, story in enumerate(
 
 
 # ============================================================
-# SORT BY RELEVANCE
+# SORT
 # ============================================================
 
 processed_articles.sort(
@@ -488,17 +599,6 @@ processed_articles.sort(
 # ============================================================
 # STATISTICS
 # ============================================================
-
-relevant_articles = [
-
-    article
-
-    for article in processed_articles
-
-    if article["relevance_score"] > 0
-
-]
-
 
 keyword_frequency = {}
 
@@ -518,7 +618,7 @@ for article in processed_articles:
 
 
 # ============================================================
-# CREATE OUTPUT
+# OUTPUT
 # ============================================================
 
 output = {
@@ -529,10 +629,13 @@ output = {
         ).isoformat(),
 
     "article_count":
+        len(ALL_SELECTED),
+
+    "processed_article_count":
         len(processed_articles),
 
     "relevant_article_count":
-        len(relevant_articles),
+        len(processed_articles),
 
     "keyword_frequency":
         keyword_frequency,
@@ -586,13 +689,13 @@ print(
 )
 
 print(
-    "Total articles:",
-    len(processed_articles)
+    "Unread stories:",
+    len(ALL_SELECTED)
 )
 
 print(
-    "Relevant articles:",
-    len(relevant_articles)
+    "Articles fully processed:",
+    len(processed_articles)
 )
 
 print(
