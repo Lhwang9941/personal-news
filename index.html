@@ -90,20 +90,60 @@
 
         newsList.innerHTML = "";
 
-        data.articles.forEach(function(article) {
+data.articles.forEach(function(article) {
 
-            const item =
-                document.createElement("div");
+    const item =
+        document.createElement("div");
 
-            item.innerHTML = `
-                <strong>${article.title}</strong>
-                <br>
-                <small>${article.publisher}</small>
-            `;
+    const keywords =
+        article.matched_keywords
+            .slice(0, 6)
+            .join(" · ");
 
-            newsList.appendChild(item);
+    const published =
+        new Date(
+            article.published_kst
+        ).toLocaleString(
+            "en-GB",
+            {
+                day: "2-digit",
+                month: "short",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
 
-        });
+    item.innerHTML = `
+
+        <a
+            href="${article.url}"
+            target="_blank"
+            class="news-title"
+        >
+            ${article.title}
+        </a>
+
+        <div class="news-meta">
+            ${article.publisher}
+            ·
+            ${article.country}
+            ·
+            ${published} KST
+        </div>
+
+        <div class="news-keywords">
+            ${keywords}
+        </div>
+
+        <div class="news-score">
+            Relevance: ${article.relevance_score}
+        </div>
+
+    `;
+
+    newsList.appendChild(item);
+
+});
 
     }
 
