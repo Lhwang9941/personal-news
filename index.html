@@ -52,29 +52,62 @@
     </div>
 
 
-    <script>
+<script>
 
-        function login() {
+    function login() {
 
-            const password =
-                document.getElementById("password").value;
+        const password =
+            document.getElementById("password").value;
 
-            if (password === "news123") {
+        if (password === "news123") {
 
-                document.getElementById("login").style.display = "none";
+            document.getElementById("login").style.display = "none";
 
-                document.getElementById("dashboard").style.display = "grid";
+            document.getElementById("dashboard").style.display = "grid";
 
-            } else {
+            loadNews();
 
-                document.getElementById("message").innerText =
-                    "Incorrect password.";
+        } else {
 
-            }
+            document.getElementById("message").innerText =
+                "Incorrect password.";
 
         }
 
-    </script>
+    }
+
+
+    async function loadNews() {
+
+        const response =
+            await fetch("data/news.json");
+
+        const data =
+            await response.json();
+
+        const newsList =
+            document.getElementById("news-list");
+
+        newsList.innerHTML = "";
+
+        data.articles.forEach(function(article) {
+
+            const item =
+                document.createElement("div");
+
+            item.innerHTML = `
+                <strong>${article.title}</strong>
+                <br>
+                <small>${article.publisher}</small>
+            `;
+
+            newsList.appendChild(item);
+
+        });
+
+    }
+
+</script>
 
 </body>
 </html>
