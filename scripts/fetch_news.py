@@ -611,6 +611,11 @@ for article in processed_articles:
                 0
             ) + 1
         )
+# ============================================================
+# TOP 100
+# ============================================================
+
+top_articles = processed_articles[:100]
 
 
 # ============================================================
@@ -637,7 +642,7 @@ output = {
         keyword_frequency,
 
     "articles":
-        processed_articles
+        top_articles
 
 }
 
