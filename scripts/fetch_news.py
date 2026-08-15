@@ -630,19 +630,22 @@ output = {
         ).isoformat(),
 
     "article_count":
-        len(ALL_SELECTED),
+    len(ALL_SELECTED),
 
-    "processed_article_count":
-        len(processed_articles),
+"processed_article_count":
+    len(processed_articles),
 
-    "relevant_article_count":
-        len(processed_articles),
+"relevant_article_count":
+    len(processed_articles),
 
-    "keyword_frequency":
-        keyword_frequency,
+"displayed_article_count":
+    len(top_articles),
 
-    "articles":
-        top_articles
+"keyword_frequency":
+    keyword_frequency,
+
+"articles":
+    top_articles
 
 }
 
