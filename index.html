@@ -291,11 +291,177 @@ data.articles.forEach(function(article) {
 
     `;
 
-    newsList.appendChild(item);
+newsList.appendChild(item);
 
 });
 
+    updateStatus(data);
+
+}
+
     }
+
+    // ============================================================
+// STATUS PANEL
+// ============================================================
+
+function updateStatus(data) {
+
+    const articles = data.articles || [];
+
+    // --------------------------------------------------------
+    // TOTAL SELECTED
+    // --------------------------------------------------------
+
+    document.getElementById(
+        "status-selected"
+    ).textContent = articles.length;
+
+
+    // --------------------------------------------------------
+    // KEYWORD FREQUENCY
+    // --------------------------------------------------------
+
+    const keywordCounts = {};
+
+    articles.forEach(function(article) {
+
+        const keywords =
+            article.matched_keywords || [];
+
+        keywords.forEach(function(keyword) {
+
+            if (!keywordCounts[keyword]) {
+                keywordCounts[keyword] = 0;
+            }
+
+            keywordCounts[keyword]++;
+
+        });
+
+    });
+
+
+    const sortedKeywords =
+        Object.entries(keywordCounts)
+            .sort(function(a, b) {
+                return b[1] - a[1];
+            })
+            .slice(0, 10);
+
+
+    const keywordHTML =
+        sortedKeywords
+            .map(function(item) {
+
+                return `
+                    <div>
+                        ${item[0]}
+                        <span style="float:right;">
+                            ${item[1]}
+                        </span>
+                    </div>
+                `;
+
+            })
+            .join("");
+
+
+    document.getElementById(
+        "status-keywords"
+    ).innerHTML =
+        keywordHTML || "—";
+
+
+    // --------------------------------------------------------
+    // COUNTRY FREQUENCY
+    // --------------------------------------------------------
+
+    const countryCounts = {};
+
+    articles.forEach(function(article) {
+
+        const country =
+            article.country || "Unknown";
+
+        if (!countryCounts[country]) {
+            countryCounts[country] = 0;
+        }
+
+        countryCounts[country]++;
+
+    });
+
+
+    const sortedCountries =
+        Object.entries(countryCounts)
+            .sort(function(a, b) {
+                return b[1] - a[1];
+            })
+            .slice(0, 8);
+
+
+    const countryHTML =
+        sortedCountries
+            .map(function(item) {
+
+                return `
+                    <div>
+                        ${item[0]}
+                        <span style="float:right;">
+                            ${item[1]}
+                        </span>
+                    </div>
+                `;
+
+            })
+            .join("");
+
+
+    document.getElementById(
+        "status-regions"
+    ).innerHTML =
+        countryHTML || "—";
+
+
+    // --------------------------------------------------------
+    // LAST UPDATE
+    // --------------------------------------------------------
+
+    if (articles.length > 0) {
+
+        const latest =
+            articles
+                .map(function(article) {
+                    return new Date(
+                        article.published_utc
+                    );
+                })
+                .sort(function(a, b) {
+                    return b - a;
+                })[0];
+
+
+        document.getElementById(
+            "status-update"
+        ).textContent =
+            latest.toLocaleString(
+                "en-GB",
+                {
+                    timeZone: "Asia/Seoul",
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            ) + " KST";
+
+    }
+
+}
+    
 // ============================================================
 // WORLD CLOCK
 // ============================================================
