@@ -6,27 +6,68 @@
 
 <body>
 
-    <h1>My News</h1>
+    <div id="login">
+        <h1>My News</h1>
 
-    <p>Enter password to continue:</p>
+        <p>Enter password to continue:</p>
 
-    <input type="password" id="password">
-    <button onclick="login()">Enter</button>
+        <input type="password" id="password">
+        <button onclick="login()">Enter</button>
 
-    <p id="message"></p>
+        <p id="message"></p>
+    </div>
+
+
+    <div id="dashboard" style="display: none;">
+
+        <div id="summary">
+            <h2>Daily Summary</h2>
+            <p>Your daily news summary will appear here.</p>
+        </div>
+
+
+        <div id="important">
+            <h2>Important News</h2>
+            <p>Your 50 most important stories will appear here.</p>
+        </div>
+
+
+        <div id="clock">
+            <h2>World Clock</h2>
+            <p>Your world clocks will appear here.</p>
+        </div>
+
+
+        <div id="status">
+            <h2>Status</h2>
+            <p>News processing information will appear here.</p>
+        </div>
+
+    </div>
+
 
     <script>
+
         function login() {
-            const password = document.getElementById("password").value;
+
+            const password =
+                document.getElementById("password").value;
 
             if (password === "news123") {
-                document.getElementById("message").innerText =
-                    "Password correct. Welcome.";
+
+                document.getElementById("login").style.display = "none";
+
+                document.getElementById("dashboard").style.display = "grid";
+
             } else {
+
                 document.getElementById("message").innerText =
                     "Incorrect password.";
+
             }
+
         }
+
     </script>
 
 </body>
