@@ -582,3 +582,10 @@ body {
 
     display: block;
 }
+.news-title.north-korea-news {
+    color: #ff4444;
+}
+
+.news-title.north-korea-news:hover {
+    color: #ff4444;
+}
