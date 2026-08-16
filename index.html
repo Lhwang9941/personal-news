@@ -1010,7 +1010,134 @@ setInterval(
     updateClocks,
     1000
 );
+// ============================================================
+// WEATHER
+// ============================================================
 
+const weatherCities = {
+
+    "weather-seoul": {
+        latitude: 37.5665,
+        longitude: 126.9780
+    },
+
+    "weather-beijing": {
+        latitude: 39.9042,
+        longitude: 116.4074
+    },
+
+    "weather-moscow": {
+        latitude: 55.7558,
+        longitude: 37.6173
+    },
+
+    "weather-kyiv": {
+        latitude: 50.4501,
+        longitude: 30.5234
+    },
+
+    "weather-istanbul": {
+        latitude: 41.0082,
+        longitude: 28.9784
+    },
+
+    "weather-tehran": {
+        latitude: 35.6892,
+        longitude: 51.3890
+    },
+
+    "weather-vilnius": {
+        latitude: 54.6872,
+        longitude: 25.2797
+    },
+
+    "weather-paris": {
+        latitude: 48.8566,
+        longitude: 2.3522
+    },
+
+    "weather-warsaw": {
+        latitude: 52.2297,
+        longitude: 21.0122
+    },
+
+    "weather-jerusalem": {
+        latitude: 31.7683,
+        longitude: 35.2137
+    }
+
+};
+
+
+async function updateWeather() {
+
+    for (
+        const [elementId, location]
+        of Object.entries(weatherCities)
+    ) {
+
+        try {
+
+            const response =
+                await fetch(
+                    "https://api.open-meteo.com/v1/forecast"
+                    + "?latitude=" + location.latitude
+                    + "&longitude=" + location.longitude
+                    + "&daily=temperature_2m_max,temperature_2m_min"
+                    + "&timezone=auto"
+                );
+
+
+            const data =
+                await response.json();
+
+
+            const high =
+                Math.round(
+                    data.daily.temperature_2m_max[0]
+                );
+
+            const low =
+                Math.round(
+                    data.daily.temperature_2m_min[0]
+                );
+
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+
+            if (element) {
+
+                element.textContent =
+                    "HIGH "
+                    + high
+                    + "°C · LOW "
+                    + low
+                    + "°C";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Weather error:",
+                elementId,
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+updateWeather();
 
 </script>
 
