@@ -122,6 +122,124 @@ NEWS ARTICLES:
 # GPT REGIONAL SUMMARIES
 # ============================================================
 
+# ============================================================
+# GPT ARTICLE REGION CLASSIFICATION
+# ============================================================
+
+def classify_article_regions(articles):
+
+    if not articles:
+
+        return {}
+
+
+    article_list = []
+
+
+    for index, article in enumerate(articles):
+
+        article_list.append({
+
+            "index":
+                index,
+
+            "title":
+                article.get(
+                    "title",
+                    ""
+                ),
+
+            "body":
+                article.get(
+                    "body",
+                    ""
+                )[:2500]
+
+        })
+
+
+    prompt = f"""
+You are classifying international news articles
+for a geopolitical news dashboard.
+
+Assign EVERY article to exactly ONE of these regions:
+
+1. asia
+2. europe_russia
+3. middle_east
+4. america_other
+
+Classification must be based on the PRIMARY SUBJECT
+of the article, not the publisher's country.
+
+Examples:
+
+- A Guardian article about North Korea → asia
+- A Reuters article about Israel → middle_east
+- A French newspaper article about Ukraine → europe_russia
+- A Japanese newspaper article about the US → america_other
+
+If an article concerns multiple regions, choose the
+region that is most central to the story.
+
+Return ONLY valid JSON in this exact format:
+
+{{
+    "0": "asia",
+    "1": "europe_russia",
+    "2": "middle_east",
+    "3": "america_other"
+}}
+
+Here are the articles:
+
+{json.dumps(
+    article_list,
+    ensure_ascii=False
+)}
+"""
+
+
+    try:
+
+        response = client.responses.create(
+
+            model="gpt-5.6",
+
+            input=prompt
+
+        )
+
+
+        result =
+            response.output_text.strip()
+
+
+        result = result.replace(
+            "```json",
+            ""
+        ).replace(
+            "```",
+            ""
+        ).strip()
+
+
+        classifications =
+            json.loads(result)
+
+
+        return classifications
+
+
+    except Exception as e:
+
+        print(
+            "REGION CLASSIFICATION ERROR:",
+            e
+        )
+
+        return {}
+        
 def generate_regional_summaries(articles):
 
     regions = {
