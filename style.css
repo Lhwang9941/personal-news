@@ -149,21 +149,18 @@ body {
 
 #summary,
 #important,
-#clock,
 #worldclock,
 #status {
-
     min-width: 0;
     min-height: 0;
 
-    padding: 18px;
+    padding: 24px;
 
-    background: #030303;
+    background: #000000;
     color: #ffffff;
 
-    border: 1px solid #303030;
+    border: none;
 }
-
 
 /* ============================================================
    PANEL TITLES
