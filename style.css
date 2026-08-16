@@ -628,3 +628,30 @@ body {
 
     text-transform: uppercase;
 }
+
+/* ============================================================
+   USER GREETING
+   ============================================================ */
+
+#user-greeting {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 24px;
+
+    color: #777777;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    display: none;
+
+    z-index: 10;
+}
