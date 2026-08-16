@@ -35,6 +35,7 @@ jobs:
         env:
           NB_USERNAME: ${{ secrets.NB_USERNAME }}
           NB_PASSWORD: ${{ secrets.NB_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python scripts/fetch_news.py
 
