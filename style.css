@@ -1057,3 +1057,30 @@ body.regional-page .regional-column {
 
     text-decoration: none;
 }
+
+/* ============================================================
+   MAIN DASHBOARD BUTTON
+   ============================================================ */
+
+#main-button {
+
+    position: absolute;
+
+    top: 28px;
+
+    right: 120px;
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #777777;
+
+    display: block;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
