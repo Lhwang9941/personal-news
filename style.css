@@ -655,3 +655,154 @@ body {
 
     z-index: 10;
 }
+
+/* ============================================================
+   REGIONAL INTELLIGENCE PAGE
+   ============================================================ */
+
+#regional-dashboard {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    width: 100vw;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #000000;
+}
+
+
+.regional-column {
+
+    height: 100vh;
+
+    min-width: 0;
+
+    padding: 18px 14px;
+
+    border-right:
+        1px solid #202020;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+
+.regional-column:last-child {
+
+    border-right: none;
+}
+
+
+/* ============================================================
+   REGIONAL HEADINGS
+   ============================================================ */
+
+.regional-column > h2 {
+
+    flex-shrink: 0;
+
+    margin: 0 0 12px 0;
+
+    color: #777777;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    font-weight: normal;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* ============================================================
+   REGIONAL NEWS
+   ============================================================ */
+
+.regional-news {
+
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding-right: 8px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #333333
+        #000000;
+}
+
+
+/* ============================================================
+   REGIONAL SUMMARY
+   ============================================================ */
+
+.regional-summary {
+
+    flex-shrink: 0;
+
+    margin-top: 14px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid #292929;
+
+    max-height: 35%;
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #333333
+        #000000;
+}
+
+
+.regional-summary h3 {
+
+    margin: 0 0 10px 0;
+
+    color: #888888;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    font-weight: normal;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.regional-summary > div {
+
+    color: #999999;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
