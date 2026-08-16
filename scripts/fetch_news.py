@@ -1385,6 +1385,9 @@ output = {
             timezone.utc
         ).isoformat(),
 
+    "daily_summary":
+        daily_summary,
+
     "article_count":
         len(ALL_SELECTED),
 
