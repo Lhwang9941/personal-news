@@ -123,160 +123,266 @@ NEWS ARTICLES:
 # ============================================================
 
 # ============================================================
-# GPT ARTICLE REGION CLASSIFICATION
+# ARTICLE REGION CLASSIFICATION
 # ============================================================
 
-def classify_article_regions(articles):
+def classify_article_region(article):
 
-    if not articles:
+    title = article.get(
+        "title",
+        ""
+    ).lower()
 
-        return {}
+    body = article.get(
+        "body",
+        ""
+    ).lower()
 
-
-    article_list = []
-
-
-    for index, article in enumerate(articles):
-
-        article_list.append({
-
-            "index":
-                index,
-
-            "title":
-                article.get(
-                    "title",
-                    ""
-                ),
-
-            "body":
-                article.get(
-                    "body",
-                    ""
-                )[:2500]
-
-        })
+    text = title + " " + body
 
 
-    prompt = f"""
-You are classifying international news articles
-for a geopolitical intelligence dashboard.
+    # ========================================================
+    # ASIA
+    # ========================================================
 
-Assign EVERY article to exactly ONE region:
+    asia_keywords = [
 
-1. asia
-2. europe_russia
-3. middle_east
-4. america_other
+        "north korea",
+        "dprk",
+        "south korea",
+        "rok",
+        "china",
+        "beijing",
+        "taiwan",
+        "japan",
+        "tokyo",
+        "india",
+        "pakistan",
+        "bangladesh",
+        "indonesia",
+        "vietnam",
+        "thailand",
+        "philippines",
+        "malaysia",
+        "singapore",
+        "myanmar",
+        "afghanistan",
+        "kazakhstan",
+        "uzbekistan",
+        "mongolia",
+        "central asia"
 
-IMPORTANT:
-
-Classify the article according to its PRIMARY SUBJECT
-and the geographic location of the main event.
-
-DO NOT classify an article according to the publisher's
-country or the location of the news organization.
-
-For example:
-
-- The Guardian article about North Korea → asia
-- Reuters article about Israel → middle_east
-- French newspaper article about Ukraine → europe_russia
-- Japanese newspaper article about the United States → america_other
-- Kyiv Independent article about Ukraine → europe_russia
-- British newspaper article about Russia → europe_russia
-- Korean newspaper article about Iran → middle_east
-
-REGIONAL DEFINITIONS:
-
-ASIA:
-China, Taiwan, Japan, North Korea, South Korea,
-India, Pakistan, Southeast Asia, Central Asia and
-other events primarily occurring in Asia.
-
-EUROPE / RUSSIA:
-Russia, Ukraine, Belarus, Poland, Baltic states,
-European countries, NATO in Europe, European Union,
-and European security or military affairs.
-
-MIDDLE EAST:
-Israel, Palestine, Gaza, Lebanon, Hezbollah, Syria,
-Iran, Iraq, Yemen, Saudi Arabia, Gulf states and
-other events primarily concerning the Middle East.
-
-AMERICA / OTHER:
-United States, Canada, Mexico, Central America,
-South America, Africa, Oceania, or stories whose
-primary geographic subject does not belong to the
-three categories above.
-
-If an article mentions several regions, identify the
-region containing the PRIMARY event or development.
-
-If an article is about a country's foreign policy,
-classify it according to the country or region that is
-the PRIMARY SUBJECT of the policy or action.
-
-Return ONLY valid JSON.
-
-Use the article index as the key and the region as the value.
-
-Example:
-
-{{
-    "0": "europe_russia",
-    "1": "asia",
-    "2": "middle_east",
-    "3": "america_other"
-}}
-
-ARTICLES:
-
-{json.dumps(
-    article_list,
-    ensure_ascii=False
-)}
-"""
+    ]
 
 
-    try:
+    # ========================================================
+    # MIDDLE EAST
+    # ========================================================
 
-        response = client.responses.create(
+    middle_east_keywords = [
 
-            model="gpt-5.6",
+        "israel",
+        "israeli",
+        "palestine",
+        "palestinian",
+        "gaza",
+        "west bank",
+        "hamas",
+        "hezbollah",
+        "lebanon",
+        "iran",
+        "iranian",
+        "syria",
+        "iraq",
+        "yemen",
+        "houthi",
+        "saudi arabia",
+        "qatar",
+        "bahrain",
+        "kuwait",
+        "oman",
+        "united arab emirates",
+        "uae",
+        "gulf",
+        "middle east"
 
-            input=prompt
-
-        )
+    ]
 
 
-        result = response.output_text.strip()
+    # ========================================================
+    # EUROPE / RUSSIA
+    # ========================================================
+
+    europe_keywords = [
+
+        "ukraine",
+        "ukrainian",
+        "kyiv",
+        "russia",
+        "russian",
+        "moscow",
+        "kremlin",
+        "crimea",
+        "belarus",
+        "poland",
+        "polish",
+        "warsaw",
+        "lithuania",
+        "latvia",
+        "estonia",
+        "finland",
+        "sweden",
+        "norway",
+        "germany",
+        "france",
+        "italy",
+        "spain",
+        "portugal",
+        "netherlands",
+        "belgium",
+        "romania",
+        "czech republic",
+        "czechia",
+        "slovakia",
+        "hungary",
+        "balkans",
+        "europe",
+        "european union",
+        "nato",
+        "north atlantic alliance"
+
+    ]
 
 
-        result = result.replace(
-            "```json",
-            ""
-        ).replace(
-            "```",
-            ""
-        ).strip()
+    # ========================================================
+    # AMERICA / OTHER
+    # ========================================================
+
+    america_keywords = [
+
+        "united states",
+        "u.s.",
+        "u.s ",
+        "america",
+        "american",
+        "washington",
+        "pentagon",
+        "canada",
+        "canadian",
+        "mexico",
+        "mexican",
+        "brazil",
+        "argentina",
+        "colombia",
+        "venezuela",
+        "chile",
+        "peru"
+
+    ]
 
 
-        classifications = json.loads(result)
+    # ========================================================
+    # COUNT MATCHES
+    # ========================================================
+
+    asia_score = sum(
+        1
+        for keyword in asia_keywords
+        if keyword in text
+    )
 
 
-        return classifications
+    middle_east_score = sum(
+        1
+        for keyword in middle_east_keywords
+        if keyword in text
+    )
 
 
-    except Exception as e:
+    europe_score = sum(
+        1
+        for keyword in europe_keywords
+        if keyword in text
+    )
 
-        print(
-            "REGION CLASSIFICATION ERROR:",
-            e
-        )
 
-        return {}
-        
+    america_score = sum(
+        1
+        for keyword in america_keywords
+        if keyword in text
+    )
+
+
+    # ========================================================
+    # TITLE HAS EXTRA WEIGHT
+    # ========================================================
+
+    for keyword in asia_keywords:
+
+        if keyword in title:
+
+            asia_score += 3
+
+
+    for keyword in middle_east_keywords:
+
+        if keyword in title:
+
+            middle_east_score += 3
+
+
+    for keyword in europe_keywords:
+
+        if keyword in title:
+
+            europe_score += 3
+
+
+    for keyword in america_keywords:
+
+        if keyword in title:
+
+            america_score += 3
+
+
+    # ========================================================
+    # SELECT STRONGEST REGION
+    # ========================================================
+
+    scores = {
+
+        "asia":
+            asia_score,
+
+        "europe_russia":
+            europe_score,
+
+        "middle_east":
+            middle_east_score,
+
+        "america_other":
+            america_score
+
+    }
+
+
+    region = max(
+        scores,
+        key=scores.get
+    )
+
+
+    # ========================================================
+    # NO CLEAR GEOGRAPHIC SIGNAL
+    # ========================================================
+
+    if scores[region] == 0:
+
+        return "america_other"
+
+
+    return region
+    
 def generate_regional_summaries(articles):
 
     regions = {
@@ -1749,39 +1855,29 @@ daily_summary = generate_daily_summary(
 )
 
 
-# ============================================================
-# GPT ARTICLE REGION CLASSIFICATION
-# ============================================================
-
-region_classifications = (
-    classify_article_regions(
-        top_articles
-    )
-)
-
 
 # ============================================================
 # REGIONAL GPT SUMMARIES
 # ============================================================
 
+# ============================================================
+# APPLY ARTICLE REGION CLASSIFICATION
+# ============================================================
+
+for article in top_articles:
+
+    article["region"] = (
+        classify_article_region(
+            article
+        )
+    )
+    
 regional_summaries = (
     generate_regional_summaries(
         top_articles
     )
 )
 
-# ============================================================
-# APPLY REGION CLASSIFICATIONS
-# ============================================================
-
-for index, article in enumerate(top_articles):
-
-    article["region"] = (
-        region_classifications.get(
-            str(index),
-            "america_other"
-        )
-    )
 
 
 # ============================================================
