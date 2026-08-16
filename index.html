@@ -651,13 +651,17 @@ const response =
 
             item.innerHTML = `
 
-                <a
-                    href="${article.url}"
-                    target="_blank"
-                    class="news-title"
-                >
-                    ${article.title}
-                </a>
+<a
+    href="${article.url}"
+    target="_blank"
+    class="news-title ${article.matched_keywords.some(
+        keyword =>
+            keyword.toLowerCase().includes("north korea") ||
+            keyword.toLowerCase().includes("dprk")
+    ) ? "north-korea-news" : ""}"
+>
+    ${article.title}
+</a>
 
                 <div class="news-meta">
                     ${article.publisher}
