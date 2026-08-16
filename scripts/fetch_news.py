@@ -211,8 +211,7 @@ Here are the articles:
         )
 
 
-        result =
-            response.output_text.strip()
+        result = response.output_text.strip()
 
 
         result = result.replace(
@@ -224,8 +223,7 @@ Here are the articles:
         ).strip()
 
 
-        classifications =
-            json.loads(result)
+        classifications = json.loads(result)
 
 
         return classifications
