@@ -43,6 +43,8 @@
     <img src="assets/logo.svg" alt="Logo">
 </div>
 
+<div id="user-greeting"></div>    
+    
     <!-- ========================================================
          DAILY SUMMARY
          ======================================================== -->
@@ -554,7 +556,28 @@ function login() {
         document.getElementById("password").value;
 
 
-    if (password === "news123") {
+    const users = {
+
+        "news123": {
+            name: ""
+        },
+
+        "76049941": {
+            name: "Ariadne"
+        },
+
+        "76006035": {
+            name: "James"
+        }
+
+    };
+
+
+    const user =
+        users[password];
+
+
+    if (user) {
 
         document.getElementById(
             "login"
@@ -564,6 +587,32 @@ function login() {
         document.getElementById(
             "dashboard"
         ).style.display = "grid";
+
+
+        // ----------------------------------------------------
+        // PERSONAL GREETING
+        // ----------------------------------------------------
+
+        const greeting =
+            document.getElementById(
+                "user-greeting"
+            );
+
+
+        if (user.name) {
+
+            greeting.textContent =
+                "Welcome " + user.name;
+
+            greeting.style.display =
+                "block";
+
+        } else {
+
+            greeting.style.display =
+                "none";
+
+        }
 
 
         loadNews();
