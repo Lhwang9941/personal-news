@@ -911,3 +911,90 @@ body.regional-page .regional-column {
 
     text-transform: uppercase;
 }
+/* ============================================================
+   REGIONAL SUMMARY CONTENT
+   ============================================================ */
+
+.regional-summary {
+
+    color: #999999;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 10px;
+
+    line-height: 1.55;
+}
+
+
+.regional-summary h3 {
+
+    margin: 0 0 10px 0;
+
+    color: #888888;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    font-weight: normal;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.regional-summary h4 {
+
+    margin: 12px 0 5px 0;
+
+    color: #bbbbbb;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    line-height: 1.4;
+}
+
+
+.regional-summary strong {
+
+    color: #bbbbbb;
+
+    font-weight: bold;
+}
+
+
+.regional-summary-bullet {
+
+    margin-top: 5px;
+
+    padding-left: 4px;
+
+    color: #888888;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+.regional-summary-gap {
+
+    height: 6px;
+}
