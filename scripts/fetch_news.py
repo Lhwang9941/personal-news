@@ -118,7 +118,223 @@ NEWS ARTICLES:
 
         return "Daily summary unavailable."
 
+# ============================================================
+# GPT REGIONAL SUMMARIES
+# ============================================================
 
+def generate_regional_summaries(articles):
+
+    regions = {
+
+        "asia": [],
+        "europe_russia": [],
+        "middle_east": [],
+        "america_other": []
+
+    }
+
+
+    # --------------------------------------------------------
+    # CLASSIFY ARTICLES
+    # --------------------------------------------------------
+
+    for article in articles:
+
+        text = (
+            article.get("title", "") +
+            " " +
+            article.get("body", "")
+        ).lower()
+
+
+        if any(keyword in text for keyword in [
+
+            "south korea",
+            "north korea",
+            "china",
+            "japan",
+            "taiwan",
+            "india",
+            "pakistan",
+            "indonesia",
+            "vietnam",
+            "thailand",
+            "philippines",
+            "singapore",
+            "malaysia",
+            "afghanistan",
+            "central asia"
+
+        ]):
+
+            regions["asia"].append(article)
+
+
+        elif any(keyword in text for keyword in [
+
+            "russia",
+            "ukraine",
+            "belarus",
+            "france",
+            "germany",
+            "united kingdom",
+            "britain",
+            "italy",
+            "spain",
+            "poland",
+            "lithuania",
+            "latvia",
+            "estonia",
+            "sweden",
+            "norway",
+            "finland",
+            "europe",
+            "nato",
+            "european union"
+
+        ]):
+
+            regions["europe_russia"].append(article)
+
+
+        elif any(keyword in text for keyword in [
+
+            "israel",
+            "palestine",
+            "gaza",
+            "lebanon",
+            "hezbollah",
+            "syria",
+            "iran",
+            "iraq",
+            "saudi arabia",
+            "yemen",
+            "qatar",
+            "bahrain",
+            "kuwait",
+            "oman",
+            "gulf",
+            "middle east"
+
+        ]):
+
+            regions["middle_east"].append(article)
+
+
+        else:
+
+            regions["america_other"].append(article)
+
+
+    client = OpenAI()
+
+
+    summaries = {}
+
+
+    # --------------------------------------------------------
+    # GENERATE ONE SUMMARY PER REGION
+    # --------------------------------------------------------
+
+    for region, region_articles in regions.items():
+
+        if not region_articles:
+
+            summaries[region] = (
+                "No significant regional "
+                "developments were identified."
+            )
+
+            continue
+
+
+        news_items = []
+
+
+        for article in region_articles[:20]:
+
+            news_items.append(
+                f"""
+TITLE: {article.get("title", "")}
+
+PUBLISHER:
+{article.get("publisher", "Unknown")}
+
+ARTICLE:
+{article.get("body", "")[:3000]}
+"""
+            )
+
+
+        news_text = "\n\n".join(
+            news_items
+        )
+
+
+        prompt = f"""
+You are producing a concise regional intelligence briefing.
+
+REGION:
+{region.replace("_", " ").upper()}
+
+Review the following news articles.
+
+Identify the THREE most important developments.
+
+For each development:
+
+- Give it a short descriptive heading.
+- Explain what happened.
+- Explain why it matters.
+
+Use neutral, factual language.
+
+Do not invent information.
+
+Focus on geopolitical, military, diplomatic,
+economic and security developments.
+
+End with a short section called WATCH containing
+one or two developments that deserve monitoring.
+
+NEWS:
+
+{news_text}
+"""
+
+
+        try:
+
+            response = client.responses.create(
+
+                model="gpt-5.6",
+
+                input=prompt
+
+            )
+
+
+            summaries[region] = (
+                response.output_text
+            )
+
+
+        except Exception as e:
+
+            print(
+                f"REGIONAL SUMMARY ERROR "
+                f"({region}):",
+                e
+            )
+
+
+            summaries[region] = (
+                "Regional summary unavailable."
+            )
+
+
+    return summaries
+    
 # ============================================================
 # PUBLISHER / COUNTRY DATABASE
 # ============================================================
@@ -1375,6 +1591,16 @@ daily_summary = generate_daily_summary(
 )
 
 # ============================================================
+# REGIONAL GPT SUMMARIES
+# ============================================================
+
+regional_summaries = (
+    generate_regional_summaries(
+        top_articles
+    )
+)
+
+# ============================================================
 # OUTPUT
 # ============================================================
 
@@ -1386,10 +1612,13 @@ output = {
         ).isoformat(),
 
     "daily_summary":
-        daily_summary,
+    daily_summary,
 
-    "article_count":
-        len(ALL_SELECTED),
+"regional_summaries":
+    regional_summaries,
+
+"article_count":
+    len(ALL_SELECTED),
 
     "processed_article_count":
         len(processed_articles),
