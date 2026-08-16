@@ -143,7 +143,240 @@
 
     </div>
 
+<script>
 
+async function loadRegionalNews() {
+
+    try {
+
+        const response =
+            await fetch("data/news.json");
+
+        const data =
+            await response.json();
+
+        const articles =
+            data.articles || [];
+
+
+        const regions = {
+
+            asia: [],
+
+            europe: [],
+
+            middleEast: [],
+
+            america: []
+
+        };
+
+
+        // ====================================================
+        // CLASSIFY ARTICLES
+        // ====================================================
+
+        articles.forEach(article => {
+
+            const country =
+                (article.country || "")
+                .toLowerCase();
+
+
+            if (
+
+                country.includes("south korea") ||
+                country.includes("north korea") ||
+                country.includes("china") ||
+                country.includes("japan") ||
+                country.includes("taiwan") ||
+                country.includes("india") ||
+                country.includes("pakistan") ||
+                country.includes("indonesia") ||
+                country.includes("vietnam") ||
+                country.includes("thailand") ||
+                country.includes("philippines") ||
+                country.includes("singapore") ||
+                country.includes("malaysia") ||
+                country.includes("afghanistan") ||
+                country.includes("kazakhstan") ||
+                country.includes("uzbekistan")
+
+            ) {
+
+                regions.asia.push(article);
+
+            }
+
+
+            else if (
+
+                country.includes("russia") ||
+                country.includes("ukraine") ||
+                country.includes("belarus") ||
+                country.includes("france") ||
+                country.includes("germany") ||
+                country.includes("united kingdom") ||
+                country.includes("italy") ||
+                country.includes("spain") ||
+                country.includes("poland") ||
+                country.includes("lithuania") ||
+                country.includes("latvia") ||
+                country.includes("estonia") ||
+                country.includes("sweden") ||
+                country.includes("norway") ||
+                country.includes("finland") ||
+                country.includes("netherlands") ||
+                country.includes("belgium") ||
+                country.includes("romania") ||
+                country.includes("czech") ||
+                country.includes("hungary") ||
+                country.includes("greece") ||
+                country.includes("portugal")
+
+            ) {
+
+                regions.europe.push(article);
+
+            }
+
+
+            else if (
+
+                country.includes("israel") ||
+                country.includes("palestine") ||
+                country.includes("lebanon") ||
+                country.includes("syria") ||
+                country.includes("iran") ||
+                country.includes("iraq") ||
+                country.includes("saudi") ||
+                country.includes("yemen") ||
+                country.includes("jordan") ||
+                country.includes("qatar") ||
+                country.includes("bahrain") ||
+                country.includes("kuwait") ||
+                country.includes("oman") ||
+                country.includes("uae") ||
+                country.includes("united arab")
+
+            ) {
+
+                regions.middleEast.push(article);
+
+            }
+
+
+            else {
+
+                regions.america.push(article);
+
+            }
+
+        });
+
+
+        // ====================================================
+        // DISPLAY
+        // ====================================================
+
+        renderRegionalNews(
+            "regional-asia",
+            regions.asia
+        );
+
+
+        renderRegionalNews(
+            "regional-europe",
+            regions.europe
+        );
+
+
+        renderRegionalNews(
+            "regional-middle-east",
+            regions.middleEast
+        );
+
+
+        renderRegionalNews(
+            "regional-america",
+            regions.america
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Regional news error:",
+            error
+        );
+
+    }
+
+}
+
+
+function renderRegionalNews(
+    elementId,
+    articles
+) {
+
+    const container =
+        document.getElementById(
+            elementId
+        );
+
+
+    container.innerHTML = "";
+
+
+    articles.forEach(article => {
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "regional-news-item";
+
+
+        item.innerHTML = `
+
+            <div class="regional-news-title">
+                ${article.title}
+            </div>
+
+            <div class="regional-news-meta">
+                ${article.publisher || "Unknown Publisher"}
+            </div>
+
+        `;
+
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                window.open(
+                    article.url,
+                    "_blank"
+                );
+
+            }
+        );
+
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+loadRegionalNews();
+
+</script>
 </body>
 
 </html>
