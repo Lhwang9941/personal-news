@@ -395,96 +395,26 @@ def generate_regional_summaries(articles):
     }
 
 
-    # --------------------------------------------------------
-    # CLASSIFY ARTICLES
-    # --------------------------------------------------------
+# --------------------------------------------------------
+# GROUP ARTICLES BY EXISTING REGION
+# --------------------------------------------------------
 
-    for article in articles:
+for article in articles:
 
-        text = (
-            article.get("title", "") +
-            " " +
-            article.get("body", "")
-        ).lower()
-
-
-        if any(keyword in text for keyword in [
-
-            "south korea",
-            "north korea",
-            "china",
-            "japan",
-            "taiwan",
-            "india",
-            "pakistan",
-            "indonesia",
-            "vietnam",
-            "thailand",
-            "philippines",
-            "singapore",
-            "malaysia",
-            "afghanistan",
-            "central asia"
-
-        ]):
-
-            regions["asia"].append(article)
+    region = article.get(
+        "region",
+        "america_other"
+    )
 
 
-        elif any(keyword in text for keyword in [
+    if region not in regions:
 
-            "russia",
-            "ukraine",
-            "belarus",
-            "france",
-            "germany",
-            "united kingdom",
-            "britain",
-            "italy",
-            "spain",
-            "poland",
-            "lithuania",
-            "latvia",
-            "estonia",
-            "sweden",
-            "norway",
-            "finland",
-            "europe",
-            "nato",
-            "european union"
-
-        ]):
-
-            regions["europe_russia"].append(article)
+        region = "america_other"
 
 
-        elif any(keyword in text for keyword in [
-
-            "israel",
-            "palestine",
-            "gaza",
-            "lebanon",
-            "hezbollah",
-            "syria",
-            "iran",
-            "iraq",
-            "saudi arabia",
-            "yemen",
-            "qatar",
-            "bahrain",
-            "kuwait",
-            "oman",
-            "gulf",
-            "middle east"
-
-        ]):
-
-            regions["middle_east"].append(article)
-
-
-        else:
-
-            regions["america_other"].append(article)
+    regions[region].append(
+        article
+    )
 
 
     client = OpenAI()
