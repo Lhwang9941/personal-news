@@ -351,6 +351,10 @@ body {
     text-transform: uppercase;
 }
 
+.priority-city {
+    font-weight: bold;
+}
+
 .clock-city::before {
 
     content: "● ";
