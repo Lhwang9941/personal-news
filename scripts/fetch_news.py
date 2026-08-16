@@ -1501,6 +1501,9 @@ for index, candidate in enumerate(
         "country":
             country,
 
+        "region":
+        "",
+
         "timezone":
             timezone_name,
 
