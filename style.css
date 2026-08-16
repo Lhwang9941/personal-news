@@ -1,3 +1,4 @@
+```css
 /* ============================================================
    GLOBAL
    ============================================================ */
@@ -29,7 +30,7 @@ body {
 
 
 /* ============================================================
-   LOGIN — INTELLIGENCE TERMINAL
+   LOGIN
    ============================================================ */
 
 #login {
@@ -131,6 +132,7 @@ body {
    ============================================================ */
 
 #dashboard {
+
     display: grid;
 
     grid-template-columns: 1fr 1fr;
@@ -144,23 +146,26 @@ body {
 
 
 /* ============================================================
-   FOUR MAIN PANELS
+   MAIN PANELS
    ============================================================ */
 
 #summary,
 #important,
 #worldclock,
 #status {
+
     min-width: 0;
     min-height: 0;
 
     padding: 24px;
 
     background: #000000;
+
     color: #ffffff;
 
     border: none;
 }
+
 
 /* ============================================================
    PANEL TITLES
@@ -172,7 +177,7 @@ body {
 #worldclock h2,
 #status h2 {
 
-    margin: 0 0 12px 0;
+    margin: 0 0 18px 0;
 
     font-family: monospace;
 
@@ -180,53 +185,25 @@ body {
     font-weight: normal;
 
     letter-spacing: 2px;
+
     text-transform: uppercase;
 
-    color: #999999;
+    color: #888888;
 }
 
 
 /* ============================================================
-   PANEL ACCENT
-   ============================================================ */
-
-#summary,
-#important,
-#worldclock,
-#status {
-
-    position: relative;
-}
-
-#summary::before,
-#important::before,
-#worldclock::before,
-#status::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 2px;
-    height: 100%;
-
-    background: #333333;
-}
-
-
-/* ============================================================
-   IMPORTANT NEWS PANEL
+   IMPORTANT NEWS
    ============================================================ */
 
 #important {
+
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 #news-list {
+
     display: block;
 }
 
@@ -234,7 +211,7 @@ body {
 
     padding: 12px 0;
 
-    border-bottom: 1px solid #242424;
+    border-bottom: 1px solid #1c1c1c;
 }
 
 .news-title {
@@ -245,16 +222,22 @@ body {
 
     text-decoration: none;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 13px;
+
     line-height: 1.45;
 
     margin-bottom: 6px;
 }
 
 .news-title:hover {
+
     color: #ffffff;
+
     text-decoration: underline;
 }
 
@@ -273,7 +256,7 @@ body {
 
 .news-keywords {
 
-    color: #888888;
+    color: #777777;
 
     font-family: monospace;
 
@@ -286,7 +269,7 @@ body {
 
 .news-score {
 
-    color: #555555;
+    color: #4d4d4d;
 
     font-family: monospace;
 
@@ -301,19 +284,23 @@ body {
    ============================================================ */
 
 #important::-webkit-scrollbar {
+
     width: 5px;
 }
 
 #important::-webkit-scrollbar-track {
+
     background: #050505;
 }
 
 #important::-webkit-scrollbar-thumb {
-    background: #333333;
+
+    background: #2c2c2c;
 }
 
 #important::-webkit-scrollbar-thumb:hover {
-    background: #555555;
+
+    background: #444444;
 }
 
 
@@ -338,38 +325,15 @@ body {
     width: 100%;
 
     margin-top: 8px;
-
-    border-top: 1px solid #303030;
-    border-left: 1px solid #303030;
 }
 
 .clock {
 
-    position: relative;
-
     min-height: 48px;
 
-    padding: 9px 10px;
+    padding: 10px 10px;
 
     background: #050505;
-
-    border-right: 1px solid #303030;
-    border-bottom: 1px solid #303030;
-}
-
-.clock::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 2px;
-    height: 100%;
-
-    background: #333333;
 }
 
 .clock-city {
@@ -380,7 +344,7 @@ body {
 
     letter-spacing: 1.5px;
 
-    color: #666666;
+    color: #5f5f5f;
 
     margin-bottom: 5px;
 
@@ -391,7 +355,7 @@ body {
 
     content: "● ";
 
-    color: #444444;
+    color: #383838;
 }
 
 .clock-time {
@@ -407,28 +371,100 @@ body {
 
 
 /* ============================================================
-   STATUS PANEL
+   SYSTEM STATUS
    ============================================================ */
 
 #status {
+
+    overflow-y: auto;
+    overflow-x: hidden;
 
     font-family: monospace;
 
     color: #999999;
 }
 
-#status p {
+.status-section {
 
-    color: #777777;
+    padding: 10px 0;
+
+    border-bottom: 1px solid #1c1c1c;
+}
+
+.status-label {
+
+    margin-bottom: 5px;
+
+    color: #505050;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+.status-value {
+
+    color: #dddddd;
+
+    font-family: monospace;
+
+    font-size: 20px;
+
+    letter-spacing: 1px;
+}
+
+.status-list {
+
+    color: #999999;
+
+    font-family: monospace;
 
     font-size: 10px;
 
-    line-height: 1.6;
+    line-height: 1.8;
+}
+
+.status-update {
+
+    color: #666666;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 0.5px;
 }
 
 
 /* ============================================================
-   SUMMARY PANEL
+   STATUS SCROLLBAR
+   ============================================================ */
+
+#status::-webkit-scrollbar {
+
+    width: 5px;
+}
+
+#status::-webkit-scrollbar-track {
+
+    background: #050505;
+}
+
+#status::-webkit-scrollbar-thumb {
+
+    background: #2c2c2c;
+}
+
+#status::-webkit-scrollbar-thumb:hover {
+
+    background: #444444;
+}
+
+
+/* ============================================================
+   SUMMARY
    ============================================================ */
 
 #summary {
@@ -439,28 +475,36 @@ body {
 
 #summary p {
 
-    color: #bbbbbb;
+    color: #aaaaaa;
 
     font-size: 13px;
 
     line-height: 1.6;
 }
 
+
+/* ============================================================
+   SUMMARY SCROLLBAR
+   ============================================================ */
+
 #summary::-webkit-scrollbar {
+
     width: 5px;
 }
 
 #summary::-webkit-scrollbar-track {
+
     background: #050505;
 }
 
 #summary::-webkit-scrollbar-thumb {
-    background: #333333;
+
+    background: #2c2c2c;
 }
 
 
 /* ============================================================
-   MOBILE / SMALL SCREENS
+   MOBILE
    ============================================================ */
 
 @media (max-width: 800px) {
@@ -476,6 +520,7 @@ body {
             1fr;
 
         height: auto;
+
         min-height: 100vh;
 
         overflow-y: auto;
@@ -489,71 +534,4 @@ body {
         min-height: 50vh;
     }
 }
-/* ============================================================
-   STATUS PANEL — INTELLIGENCE DASHBOARD
-   ============================================================ */
-
-#status {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.status-section {
-    padding: 10px 0;
-
-    border-bottom: 1px solid #242424;
-}
-
-.status-label {
-    margin-bottom: 5px;
-
-    color: #555555;
-
-    font-family: monospace;
-
-    font-size: 8px;
-
-    letter-spacing: 1.5px;
-}
-
-.status-value {
-    color: #dddddd;
-
-    font-family: monospace;
-
-    font-size: 20px;
-
-    letter-spacing: 1px;
-}
-
-.status-list {
-    color: #aaaaaa;
-
-    font-family: monospace;
-
-    font-size: 10px;
-
-    line-height: 1.8;
-}
-
-.status-update {
-    color: #777777;
-
-    font-family: monospace;
-
-    font-size: 9px;
-
-    letter-spacing: 0.5px;
-}
-
-#status::-webkit-scrollbar {
-    width: 5px;
-}
-
-#status::-webkit-scrollbar-track {
-    background: #050505;
-}
-
-#status::-webkit-scrollbar-thumb {
-    background: #333333;
-}
+```
