@@ -603,8 +603,10 @@ document
 
 async function loadNews() {
 
-    const response =
-        await fetch("data/news.json");
+const response =
+    await fetch(
+        "data/news.json?t=" + Date.now()
+    );
 
 
     const data =
