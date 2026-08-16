@@ -71,382 +71,130 @@
     </div>
 
 
-
-// ============================================================
-// WORLD CLOCK + WEATHER
-// ============================================================
-
-const clocks = {
-
-    "clock-seoul": {
-        timezone: "Asia/Seoul",
-        lat: 37.5665,
-        lon: 126.9780,
-        zone: "zone-seoul"
-    },
-
-    "clock-beijing": {
-        timezone: "Asia/Shanghai",
-        lat: 39.9042,
-        lon: 116.4074,
-        zone: "zone-beijing"
-    },
-
-    "clock-moscow": {
-        timezone: "Europe/Moscow",
-        lat: 55.7558,
-        lon: 37.6173,
-        zone: "zone-moscow"
-    },
-
-    "clock-kyiv": {
-        timezone: "Europe/Kyiv",
-        lat: 50.4501,
-        lon: 30.5234,
-        zone: "zone-kyiv"
-    },
-
-    "clock-istanbul": {
-        timezone: "Europe/Istanbul",
-        lat: 41.0082,
-        lon: 28.9784,
-        zone: "zone-istanbul"
-    },
-
-    "clock-tehran": {
-        timezone: "Asia/Tehran",
-        lat: 35.6892,
-        lon: 51.3890,
-        zone: "zone-tehran"
-    },
-
-    "clock-vilnius": {
-        timezone: "Europe/Vilnius",
-        lat: 54.6872,
-        lon: 25.2797,
-        zone: "zone-vilnius"
-    },
-
-    "clock-paris": {
-        timezone: "Europe/Paris",
-        lat: 48.8566,
-        lon: 2.3522,
-        zone: "zone-paris"
-    },
-
-    "clock-warsaw": {
-        timezone: "Europe/Warsaw",
-        lat: 52.2297,
-        lon: 21.0122,
-        zone: "zone-warsaw"
-    },
-
-    "clock-jerusalem": {
-        timezone: "Asia/Jerusalem",
-        lat: 31.7683,
-        lon: 35.2137,
-        zone: "zone-jerusalem"
-    }
-
-};
-
-
-// ------------------------------------------------------------
-// FORMAT UTC OFFSET
-// ------------------------------------------------------------
-
-function getUTCOffset(timezone) {
-
-    const now = new Date();
-
-    const parts =
-        new Intl.DateTimeFormat(
-            "en-US",
-            {
-                timeZone: timezone,
-                timeZoneName: "longOffset"
-            }
-        ).formatToParts(now);
-
-    const offsetPart =
-        parts.find(
-            part => part.type === "timeZoneName"
-        );
-
-    if (!offsetPart) {
-        return "UTC";
-    }
-
-    return offsetPart.value
-        .replace("GMT", "UTC");
-}
-
-
-// ------------------------------------------------------------
-// DETECT SUMMER / STANDARD TIME
-// ------------------------------------------------------------
-
-function isSummerTime(timezone) {
-
-    const now = new Date();
-
-    const january =
-        new Date(
-            now.getFullYear(),
-            0,
-            1
-        );
-
-    const july =
-        new Date(
-            now.getFullYear(),
-            6,
-            1
-        );
-
-
-    function getOffset(date) {
-
-        const parts =
-            new Intl.DateTimeFormat(
-                "en-US",
-                {
-                    timeZone: timezone,
-                    timeZoneName: "longOffset"
-                }
-            ).formatToParts(date);
-
-        const part =
-            parts.find(
-                item =>
-                    item.type === "timeZoneName"
-            );
-
-        return part
-            ? part.value
-            : "";
-    }
-
-
-    const januaryOffset =
-        getOffset(january);
-
-    const julyOffset =
-        getOffset(july);
-
-    const currentOffset =
-        getOffset(now);
-
-
-    if (
-        januaryOffset === julyOffset
-    ) {
-        return false;
-    }
-
-
-    return currentOffset === julyOffset;
-}
-
-
-// ------------------------------------------------------------
-// UPDATE CLOCKS
-// ------------------------------------------------------------
-
-function updateClocks() {
-
-    const now = new Date();
-
-
-    for (
-        const [elementId, config]
-        of Object.entries(clocks)
-    ) {
-
-        const element =
-            document.getElementById(
-                elementId
-            );
-
-        if (!element) {
-            continue;
-        }
-
-
-        element.textContent =
-            new Intl.DateTimeFormat(
-                "en-GB",
-                {
-                    timeZone:
-                        config.timezone,
-
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-
-                    hour12: false
-                }
-            ).format(now);
-
-
-        const offset =
-            getUTCOffset(
-                config.timezone
-            );
-
-
-        const summer =
-            isSummerTime(
-                config.timezone
-            );
-
-
-        const zoneElement =
-            document.getElementById(
-                config.zone
-            );
-
-
-        if (zoneElement) {
-
-            zoneElement.textContent =
-                offset +
-                " · " +
-                (
-                    summer
-                    ? "SUMMER"
-                    : "STANDARD"
-                );
-
-        }
-
-    }
-
-}
-
-
-// ------------------------------------------------------------
-// WEATHER
-// ------------------------------------------------------------
-
-async function updateWeather() {
-
-    for (
-        const [elementId, config]
-        of Object.entries(clocks)
-    ) {
-
-        const cityId =
-            elementId.replace(
-                "clock-",
-                ""
-            );
-
-        const weatherElement =
-            document.getElementById(
-                "weather-" + cityId
-            );
-
-
-        if (!weatherElement) {
-            continue;
-        }
-
-
-        try {
-
-            const url =
-                "https://api.open-meteo.com/v1/forecast" +
-                "?latitude=" +
-                config.lat +
-                "&longitude=" +
-                config.lon +
-                "&daily=temperature_2m_max,temperature_2m_min" +
-                "&temperature_unit=celsius" +
-                "&timezone=" +
-                encodeURIComponent(
-                    config.timezone
-                );
-
-
-            const response =
-                await fetch(url);
-
-
-            if (!response.ok) {
-                throw new Error(
-                    "Weather request failed"
-                );
-            }
-
-
-            const data =
-                await response.json();
-
-
-            const high =
-                Math.round(
-                    data.daily
-                        .temperature_2m_max[0]
-                );
-
-            const low =
-                Math.round(
-                    data.daily
-                        .temperature_2m_min[0]
-                );
-
-
-            weatherElement.textContent =
-                "HIGH " +
-                high +
-                "°C · LOW " +
-                low +
-                "°C";
-
-        }
-
-        catch (error) {
-
-            weatherElement.textContent =
-                "WEATHER UNAVAILABLE";
-
-            console.error(
-                "Weather error:",
-                cityId,
-                error
-            );
-
-        }
-
-    }
-
-}
-
-
-// ------------------------------------------------------------
-// START
-// ------------------------------------------------------------
-
-updateClocks();
-
-updateWeather();
-
-
-setInterval(
-    updateClocks,
-    1000
-);
-
-
-// Refresh weather every 30 minutes
-
-setInterval(
-    updateWeather,
-    30 * 60 * 1000
-);
-```
-
+    <!-- ========================================================
+         WORLD CLOCK
+         ======================================================== -->
+
+    <div id="worldclock">
+
+        <h2>World Clock</h2>
+
+        <div id="clock-grid">
+
+
+            <div class="clock">
+                <div class="clock-city">SEOUL</div>
+                <div
+                    class="clock-time"
+                    id="clock-seoul"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">BEIJING</div>
+                <div
+                    class="clock-time"
+                    id="clock-beijing"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">MOSCOW</div>
+                <div
+                    class="clock-time"
+                    id="clock-moscow"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">KYIV</div>
+                <div
+                    class="clock-time"
+                    id="clock-kyiv"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">ISTANBUL</div>
+                <div
+                    class="clock-time"
+                    id="clock-istanbul"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">TEHRAN</div>
+                <div
+                    class="clock-time"
+                    id="clock-tehran"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">VILNIUS</div>
+                <div
+                    class="clock-time"
+                    id="clock-vilnius"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">PARIS</div>
+                <div
+                    class="clock-time"
+                    id="clock-paris"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">WARSAW</div>
+                <div
+                    class="clock-time"
+                    id="clock-warsaw"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+            <div class="clock">
+                <div class="clock-city">JERUSALEM</div>
+                <div
+                    class="clock-time"
+                    id="clock-jerusalem"
+                >
+                    --:--:--
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 
 
     <!-- ========================================================
