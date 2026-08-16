@@ -1787,10 +1787,6 @@ daily_summary = generate_daily_summary(
 
 
 # ============================================================
-# REGIONAL GPT SUMMARIES
-# ============================================================
-
-# ============================================================
 # APPLY ARTICLE REGION CLASSIFICATION
 # ============================================================
 
@@ -1801,7 +1797,12 @@ for article in top_articles:
             article
         )
     )
-    
+
+
+# ============================================================
+# REGIONAL GPT SUMMARIES
+# ============================================================
+
 regional_summaries = (
     generate_regional_summaries(
         top_articles
