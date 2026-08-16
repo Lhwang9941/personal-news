@@ -1711,6 +1711,18 @@ daily_summary = generate_daily_summary(
     top_articles
 )
 
+
+# ============================================================
+# GPT ARTICLE REGION CLASSIFICATION
+# ============================================================
+
+region_classifications = (
+    classify_article_regions(
+        top_articles
+    )
+)
+
+
 # ============================================================
 # REGIONAL GPT SUMMARIES
 # ============================================================
@@ -1720,6 +1732,20 @@ regional_summaries = (
         top_articles
     )
 )
+
+# ============================================================
+# APPLY REGION CLASSIFICATIONS
+# ============================================================
+
+for index, article in enumerate(top_articles):
+
+    article["region"] = (
+        region_classifications.get(
+            str(index),
+            "america_other"
+        )
+    )
+
 
 # ============================================================
 # OUTPUT
