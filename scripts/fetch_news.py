@@ -395,26 +395,26 @@ def generate_regional_summaries(articles):
     }
 
 
-# --------------------------------------------------------
-# GROUP ARTICLES BY EXISTING REGION
-# --------------------------------------------------------
+    # --------------------------------------------------------
+    # GROUP ARTICLES BY EXISTING REGION
+    # --------------------------------------------------------
 
-for article in articles:
+    for article in articles:
 
-    region = article.get(
-        "region",
-        "america_other"
-    )
-
-
-    if region not in regions:
-
-        region = "america_other"
+        region = article.get(
+            "region",
+            "america_other"
+        )
 
 
-    regions[region].append(
-        article
-    )
+        if region not in regions:
+
+            region = "america_other"
+
+
+        regions[region].append(
+            article
+        )
 
 
     client = OpenAI()
