@@ -2,6 +2,7 @@ import requests
 import os
 import trafilatura
 import json
+from openai import OpenAI
 from datetime import datetime, timedelta, timezone
 import pytz
 from urllib.parse import urlparse
@@ -32,6 +33,90 @@ print()
 print("Loaded keywords:")
 print(KEYWORDS)
 print()
+
+
+# ============================================================
+# GPT DAILY SUMMARY
+# ============================================================
+
+def generate_daily_summary(articles):
+
+    if not articles:
+        return "No relevant news was found in the last 24 hours."
+
+    news_items = []
+
+    for article in articles[:30]:
+
+        title = article.get("title", "")
+        publisher = article.get("publisher", "Unknown")
+        country = article.get("country", "Unknown")
+        body = article.get("body", "")
+
+        news_items.append(
+            f"""
+TITLE: {title}
+PUBLISHER: {publisher}
+COUNTRY: {country}
+ARTICLE:
+{body[:4000]}
+"""
+        )
+
+    news_text = "\n\n".join(news_items)
+
+    prompt = f"""
+You are producing a concise daily intelligence-style news briefing.
+
+Review the following news articles from the last 24 hours.
+
+Identify the most important developments, especially those involving:
+
+- international security
+- geopolitics
+- military activity
+- intelligence
+- diplomacy
+- Ukraine
+- Russia
+- China
+- North Korea
+- NATO
+- the Middle East
+
+Do not simply list every article.
+
+Produce a concise briefing with:
+
+1. THREE TO FIVE major developments
+2. A short explanation of why each matters
+3. A final section called "WATCH" containing two or three developments that deserve monitoring
+
+Use neutral, factual language.
+
+Do not invent information that is not contained in the supplied articles.
+
+NEWS ARTICLES:
+
+{news_text}
+"""
+
+    try:
+
+        client = OpenAI()
+
+        response = client.responses.create(
+            model="gpt-5.6",
+            input=prompt
+        )
+
+        return response.output_text
+
+    except Exception as e:
+
+        print("OPENAI SUMMARY ERROR:", e)
+
+        return "Daily summary unavailable."
 
 
 # ============================================================
@@ -1281,6 +1366,13 @@ top_articles = (
     processed_articles[:100]
 )
 
+# ============================================================
+# DAILY GPT SUMMARY
+# ============================================================
+
+daily_summary = generate_daily_summary(
+    top_articles
+)
 
 # ============================================================
 # OUTPUT
