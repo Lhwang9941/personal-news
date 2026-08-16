@@ -602,7 +602,40 @@ document
 // ============================================================
 // LOAD NEWS
 // ============================================================
+function formatSummary(text) {
 
+    return text
+        .replace(
+            /^### (.+)$/gm,
+            '<h3>$1</h3>'
+        )
+
+        .replace(
+            /^## (.+)$/gm,
+            '<h2>$1</h2>'
+        )
+
+        .replace(
+            /\*\*(.+?)\*\*/g,
+            '<strong>$1</strong>'
+        )
+
+        .replace(
+            /^- (.+)$/gm,
+            '<div class="summary-bullet">• $1</div>'
+        )
+
+        .replace(
+            /\n{2,}/g,
+            '<div class="summary-gap"></div>'
+        )
+
+        .replace(
+            /\n/g,
+            '<br>'
+        );
+}
+    
 async function loadNews() {
 
 const response =
@@ -618,7 +651,9 @@ const response =
     document.getElementById("daily-summary");
 
 summary.innerHTML =
-    data.daily_summary || "No summary available.";
+    formatSummary(
+        data.daily_summary || "No summary available."
+    );
 
     const newsList =
         document.getElementById("news-list");
