@@ -998,3 +998,35 @@ body.regional-page .regional-column {
 
     height: 6px;
 }
+/* ============================================================
+   REGIONAL PAGE BUTTON
+   ============================================================ */
+
+#regional-button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #777777;
+
+    color: transparent;
+
+    text-decoration: none;
+
+    position: absolute;
+
+    top: 27px;
+
+    right: 27px;
+
+    cursor: pointer;
+}
