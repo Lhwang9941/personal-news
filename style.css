@@ -329,9 +329,9 @@ body {
 
 .clock {
 
-    min-height: 48px;
+    min-height: 78px;
 
-    padding: 10px 10px;
+    padding: 10px;
 
     background: #000000;
 }
@@ -367,7 +367,34 @@ body {
     letter-spacing: 1px;
 
     color: #dddddd;
+
+    margin-bottom: 4px;
 }
+
+.clock-zone {
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.8px;
+
+    color: #666666;
+
+    margin-bottom: 3px;
+}
+
+.clock-weather {
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 0.6px;
+
+    color: #777777;
+}
+
 
 
 /* ============================================================
