@@ -49,13 +49,13 @@
 
     <div id="summary">
 
-        <h2>Daily Summary</h2>
+    <h2>Daily Summary</h2>
 
-        <p>
-            Your daily news summary will appear here.
-        </p>
-
+    <div id="daily-summary">
+        Loading summary...
     </div>
+
+</div>
 
 
     <!-- ========================================================
@@ -614,6 +614,11 @@ const response =
     const data =
         await response.json();
 
+    const summary =
+    document.getElementById("daily-summary");
+
+summary.innerHTML =
+    data.daily_summary || "No summary available.";
 
     const newsList =
         document.getElementById("news-list");
