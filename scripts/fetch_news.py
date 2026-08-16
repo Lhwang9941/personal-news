@@ -35,41 +35,576 @@ print()
 
 
 # ============================================================
-# COUNTRY / TIMEZONE
+# PUBLISHER / COUNTRY DATABASE
 # ============================================================
 
-def infer_country_from_url(url):
+PUBLISHER_DATABASE = {
 
-    domain = urlparse(url).netloc.lower()
+    # --------------------------------------------------------
+    # UNITED KINGDOM
+    # --------------------------------------------------------
 
-    mapping = {
-        ".kr": ("South Korea", "Asia/Seoul"),
-        ".jp": ("Japan", "Asia/Tokyo"),
-        ".cn": ("China", "Asia/Shanghai"),
-        ".ru": ("Russia", "Europe/Moscow"),
-        ".fr": ("France", "Europe/Paris"),
-        ".de": ("Germany", "Europe/Berlin"),
-        ".uk": ("United Kingdom", "Europe/London"),
-        ".co.uk": ("United Kingdom", "Europe/London"),
-        ".it": ("Italy", "Europe/Rome"),
-        ".es": ("Spain", "Europe/Madrid"),
-        ".pt": ("Portugal", "Europe/Lisbon"),
-        ".ua": ("Ukraine", "Europe/Kyiv"),
-        ".pl": ("Poland", "Europe/Warsaw"),
-        ".se": ("Sweden", "Europe/Stockholm"),
-        ".no": ("Norway", "Europe/Oslo"),
-        ".fi": ("Finland", "Europe/Helsinki"),
-        ".com": ("Unknown", "UTC"),
-        ".org": ("Unknown", "UTC"),
-        ".net": ("Unknown", "UTC")
-    }
+    "reuters.com": (
+        "Reuters",
+        "United Kingdom",
+        "Europe/London"
+    ),
 
-    for tld, data in mapping.items():
+    "bbc.com": (
+        "BBC",
+        "United Kingdom",
+        "Europe/London"
+    ),
 
-        if domain.endswith(tld):
+    "bbc.co.uk": (
+        "BBC",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    "theguardian.com": (
+        "The Guardian",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    "ft.com": (
+        "Financial Times",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    "telegraph.co.uk": (
+        "The Telegraph",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    "independent.co.uk": (
+        "The Independent",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    "economist.com": (
+        "The Economist",
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+
+    # --------------------------------------------------------
+    # UNITED STATES
+    # --------------------------------------------------------
+
+    "nytimes.com": (
+        "The New York Times",
+        "United States",
+        "America/New_York"
+    ),
+
+    "washingtonpost.com": (
+        "The Washington Post",
+        "United States",
+        "America/New_York"
+    ),
+
+    "wsj.com": (
+        "The Wall Street Journal",
+        "United States",
+        "America/New_York"
+    ),
+
+    "cnn.com": (
+        "CNN",
+        "United States",
+        "America/New_York"
+    ),
+
+    "foxnews.com": (
+        "Fox News",
+        "United States",
+        "America/New_York"
+    ),
+
+    "nbcnews.com": (
+        "NBC News",
+        "United States",
+        "America/New_York"
+    ),
+
+    "cbsnews.com": (
+        "CBS News",
+        "United States",
+        "America/New_York"
+    ),
+
+    "abcnews.go.com": (
+        "ABC News",
+        "United States",
+        "America/New_York"
+    ),
+
+    "npr.org": (
+        "NPR",
+        "United States",
+        "America/New_York"
+    ),
+
+    "apnews.com": (
+        "Associated Press",
+        "United States",
+        "America/New_York"
+    ),
+
+
+    # --------------------------------------------------------
+    # RUSSIA
+    # --------------------------------------------------------
+
+    "rt.com": (
+        "RT",
+        "Russia",
+        "Europe/Moscow"
+    ),
+
+    "tass.com": (
+        "TASS",
+        "Russia",
+        "Europe/Moscow"
+    ),
+
+    "ria.ru": (
+        "RIA Novosti",
+        "Russia",
+        "Europe/Moscow"
+    ),
+
+    "rt.ru": (
+        "RT",
+        "Russia",
+        "Europe/Moscow"
+    ),
+
+
+    # --------------------------------------------------------
+    # FRANCE
+    # --------------------------------------------------------
+
+    "france24.com": (
+        "France 24",
+        "France",
+        "Europe/Paris"
+    ),
+
+    "lemonde.fr": (
+        "Le Monde",
+        "France",
+        "Europe/Paris"
+    ),
+
+    "lefigaro.fr": (
+        "Le Figaro",
+        "France",
+        "Europe/Paris"
+    ),
+
+
+    # --------------------------------------------------------
+    # GERMANY
+    # --------------------------------------------------------
+
+    "dw.com": (
+        "Deutsche Welle",
+        "Germany",
+        "Europe/Berlin"
+    ),
+
+    "spiegel.de": (
+        "Der Spiegel",
+        "Germany",
+        "Europe/Berlin"
+    ),
+
+
+    # --------------------------------------------------------
+    # QATAR / MIDDLE EAST
+    # --------------------------------------------------------
+
+    "aljazeera.com": (
+        "Al Jazeera",
+        "Qatar",
+        "Asia/Qatar"
+    ),
+
+    "aljazeera.net": (
+        "Al Jazeera",
+        "Qatar",
+        "Asia/Qatar"
+    ),
+
+
+    # --------------------------------------------------------
+    # ISRAEL
+    # --------------------------------------------------------
+
+    "timesofisrael.com": (
+        "The Times of Israel",
+        "Israel",
+        "Asia/Jerusalem"
+    ),
+
+    "haaretz.com": (
+        "Haaretz",
+        "Israel",
+        "Asia/Jerusalem"
+    ),
+
+
+    # --------------------------------------------------------
+    # CHINA
+    # --------------------------------------------------------
+
+    "globaltimes.cn": (
+        "Global Times",
+        "China",
+        "Asia/Shanghai"
+    ),
+
+    "chinadaily.com.cn": (
+        "China Daily",
+        "China",
+        "Asia/Shanghai"
+    ),
+
+
+    # --------------------------------------------------------
+    # JAPAN
+    # --------------------------------------------------------
+
+    "japantimes.co.jp": (
+        "The Japan Times",
+        "Japan",
+        "Asia/Tokyo"
+    ),
+
+    "nhk.or.jp": (
+        "NHK",
+        "Japan",
+        "Asia/Tokyo"
+    ),
+
+
+    # --------------------------------------------------------
+    # SOUTH KOREA
+    # --------------------------------------------------------
+
+    "koreaherald.com": (
+        "The Korea Herald",
+        "South Korea",
+        "Asia/Seoul"
+    ),
+
+    "koreatimes.co.kr": (
+        "The Korea Times",
+        "South Korea",
+        "Asia/Seoul"
+    ),
+
+
+    # --------------------------------------------------------
+    # POLAND
+    # --------------------------------------------------------
+
+    "pap.pl": (
+        "Polish Press Agency",
+        "Poland",
+        "Europe/Warsaw"
+    ),
+
+
+    # --------------------------------------------------------
+    # UKRAINE
+    # --------------------------------------------------------
+
+    "kyivindependent.com": (
+        "The Kyiv Independent",
+        "Ukraine",
+        "Europe/Kyiv"
+    ),
+
+    "ukrinform.net": (
+        "Ukrinform",
+        "Ukraine",
+        "Europe/Kyiv"
+    )
+
+}
+
+
+# ============================================================
+# COUNTRY / TIMEZONE FROM DOMAIN
+# ============================================================
+
+TLD_DATABASE = {
+
+    ".kr": (
+        "South Korea",
+        "Asia/Seoul"
+    ),
+
+    ".jp": (
+        "Japan",
+        "Asia/Tokyo"
+    ),
+
+    ".cn": (
+        "China",
+        "Asia/Shanghai"
+    ),
+
+    ".ru": (
+        "Russia",
+        "Europe/Moscow"
+    ),
+
+    ".fr": (
+        "France",
+        "Europe/Paris"
+    ),
+
+    ".de": (
+        "Germany",
+        "Europe/Berlin"
+    ),
+
+    ".uk": (
+        "United Kingdom",
+        "Europe/London"
+    ),
+
+    ".it": (
+        "Italy",
+        "Europe/Rome"
+    ),
+
+    ".es": (
+        "Spain",
+        "Europe/Madrid"
+    ),
+
+    ".pt": (
+        "Portugal",
+        "Europe/Lisbon"
+    ),
+
+    ".ua": (
+        "Ukraine",
+        "Europe/Kyiv"
+    ),
+
+    ".pl": (
+        "Poland",
+        "Europe/Warsaw"
+    ),
+
+    ".se": (
+        "Sweden",
+        "Europe/Stockholm"
+    ),
+
+    ".no": (
+        "Norway",
+        "Europe/Oslo"
+    ),
+
+    ".fi": (
+        "Finland",
+        "Europe/Helsinki"
+    ),
+
+    ".nl": (
+        "Netherlands",
+        "Europe/Amsterdam"
+    ),
+
+    ".be": (
+        "Belgium",
+        "Europe/Brussels"
+    ),
+
+    ".at": (
+        "Austria",
+        "Europe/Vienna"
+    ),
+
+    ".ch": (
+        "Switzerland",
+        "Europe/Zurich"
+    ),
+
+    ".ca": (
+        "Canada",
+        "America/Toronto"
+    ),
+
+    ".au": (
+        "Australia",
+        "Australia/Sydney"
+    ),
+
+    ".in": (
+        "India",
+        "Asia/Kolkata"
+    ),
+
+    ".tr": (
+        "Türkiye",
+        "Europe/Istanbul"
+    ),
+
+    ".il": (
+        "Israel",
+        "Asia/Jerusalem"
+    ),
+
+    ".ir": (
+        "Iran",
+        "Asia/Tehran"
+    )
+
+}
+
+
+def get_domain(url):
+
+    try:
+
+        domain = urlparse(
+            url
+        ).netloc.lower()
+
+        domain = domain.split(":")[0]
+
+        if domain.startswith("www."):
+            domain = domain[4:]
+
+        return domain
+
+    except Exception:
+
+        return ""
+
+
+def identify_publisher(url, feed_title=""):
+
+    domain = get_domain(url)
+
+
+    # --------------------------------------------------------
+    # FIRST: EXACT DOMAIN DATABASE
+    # --------------------------------------------------------
+
+    if domain in PUBLISHER_DATABASE:
+
+        publisher, country, timezone_name = (
+            PUBLISHER_DATABASE[domain]
+        )
+
+        return publisher, country, timezone_name
+
+
+    # --------------------------------------------------------
+    # SECOND: SUBDOMAIN MATCH
+    # --------------------------------------------------------
+
+    for known_domain, data in PUBLISHER_DATABASE.items():
+
+        if domain.endswith(
+            "." + known_domain
+        ):
+
             return data
 
-    return ("Unknown", "UTC")
+
+    # --------------------------------------------------------
+    # THIRD: NEWSBLUR FEED TITLE
+    # --------------------------------------------------------
+
+    if feed_title:
+
+        cleaned_feed = (
+            feed_title
+            .strip()
+        )
+
+        if cleaned_feed:
+
+            return (
+                cleaned_feed,
+                "Unknown",
+                "UTC"
+            )
+
+
+    # --------------------------------------------------------
+    # FOURTH: COUNTRY-CODE DOMAIN
+    # --------------------------------------------------------
+
+    for tld, data in TLD_DATABASE.items():
+
+        if domain.endswith(tld):
+
+            hostname_parts = domain.split(".")
+
+            if len(hostname_parts) >= 2:
+
+                possible_name = (
+                    hostname_parts[-2]
+                    .replace("-", " ")
+                    .title()
+                )
+
+            else:
+
+                possible_name = "Unknown Publisher"
+
+
+            return (
+                possible_name,
+                data[0],
+                data[1]
+            )
+
+
+    # --------------------------------------------------------
+    # FIFTH: DOMAIN NAME FALLBACK
+    # --------------------------------------------------------
+
+    if domain:
+
+        hostname_parts = domain.split(".")
+
+        if len(hostname_parts) >= 2:
+
+            publisher = (
+                hostname_parts[-2]
+                .replace("-", " ")
+                .title()
+            )
+
+            return (
+                publisher,
+                "Unknown",
+                "UTC"
+            )
+
+
+    return (
+        "Unknown Publisher",
+        "Unknown",
+        "UTC"
+    )
 
 
 # ============================================================
@@ -80,23 +615,38 @@ def fetch_full_article(url):
 
     try:
 
-        downloaded = trafilatura.fetch_url(url)
+        downloaded = (
+            trafilatura.fetch_url(
+                url
+            )
+        )
 
         if not downloaded:
+
             return None
 
+
         text = trafilatura.extract(
+
             downloaded,
+
             include_comments=False,
+
             include_tables=False,
+
             include_images=False
+
         )
 
         return text
 
+
     except Exception as e:
 
-        print("SCRAPE ERROR:", e)
+        print(
+            "SCRAPE ERROR:",
+            e
+        )
 
         return None
 
@@ -108,16 +658,21 @@ def fetch_full_article(url):
 def score_article(title, body):
 
     combined_text = (
-        title + " " + body
+        title
+        + " "
+        + body
     ).lower()
 
     matched_keywords = []
 
     score = 0
 
+
     for keyword, weight in KEYWORDS.items():
 
-        keyword_lower = keyword.lower()
+        keyword_lower = (
+            keyword.lower()
+        )
 
         if keyword_lower in combined_text:
 
@@ -127,15 +682,24 @@ def score_article(title, body):
 
             score += weight
 
-    return score, matched_keywords
+
+    return (
+        score,
+        matched_keywords
+    )
 
 
 # ============================================================
 # NEWSBLUR LOGIN
 # ============================================================
 
-NB_USERNAME = os.getenv("NB_USERNAME")
-NB_PASSWORD = os.getenv("NB_PASSWORD")
+NB_USERNAME = os.getenv(
+    "NB_USERNAME"
+)
+
+NB_PASSWORD = os.getenv(
+    "NB_PASSWORD"
+)
 
 
 if not NB_USERNAME or not NB_PASSWORD:
@@ -155,15 +719,23 @@ login_response = session.post(
     "https://newsblur.com/api/login",
 
     data={
-        "username": NB_USERNAME,
-        "password": NB_PASSWORD
+
+        "username":
+            NB_USERNAME,
+
+        "password":
+            NB_PASSWORD
+
     }
+
 )
 
 
 if login_response.status_code != 200:
 
-    print("NewsBlur login failed.")
+    print(
+        "NewsBlur login failed."
+    )
 
     print(
         login_response.text
@@ -182,9 +754,17 @@ print(
 # ============================================================
 
 CUTOFF = (
-    datetime.now(timezone.utc)
-    - timedelta(hours=24)
+
+    datetime.now(
+        timezone.utc
+    )
+
+    - timedelta(
+        hours=24
+    )
+
 )
+
 
 PAGE = 1
 
@@ -199,16 +779,21 @@ print(
 while True:
 
     url = (
-        "https://newsblur.com/reader/river_stories"
+        "https://newsblur.com/"
+        "reader/river_stories"
     )
+
 
     params = {
 
-        "read_filter": "unread",
+        "read_filter":
+            "unread",
 
-        "order": "newest",
+        "order":
+            "newest",
 
-        "page": PAGE
+        "page":
+            PAGE
 
     }
 
@@ -227,7 +812,9 @@ while True:
         "Content-Type",
         ""
 
-    ).startswith("application/json"):
+    ).startswith(
+        "application/json"
+    ):
 
         print(
             "Non-JSON response. Stopping."
@@ -237,6 +824,7 @@ while True:
 
 
     data = response.json()
+
 
     stories = data.get(
         "stories",
@@ -250,7 +838,8 @@ while True:
 
 
     print(
-        f"Page {PAGE}: {len(stories)} stories"
+        f"Page {PAGE}: "
+        f"{len(stories)} stories"
     )
 
 
@@ -261,14 +850,18 @@ while True:
 
         try:
 
-            timestamp = datetime.fromtimestamp(
+            timestamp = (
+                datetime.fromtimestamp(
 
-                int(
-                    story["story_timestamp"]
-                ),
+                    int(
+                        story[
+                            "story_timestamp"
+                        ]
+                    ),
 
-                tz=timezone.utc
+                    tz=timezone.utc
 
+                )
             )
 
         except Exception:
@@ -300,7 +893,8 @@ while True:
 print()
 
 print(
-    f"Collected {len(ALL_SELECTED)} "
+    f"Collected "
+    f"{len(ALL_SELECTED)} "
     "stories from the last 24 hours."
 )
 
@@ -332,17 +926,25 @@ def quick_keyword_score(story):
         ""
     )
 
+
     text = (
-        title + " " + content
+        title
+        + " "
+        + content
     ).lower()
+
 
     score = 0
 
     matched = []
 
+
     for keyword, weight in KEYWORDS.items():
 
-        keyword_lower = keyword.lower()
+        keyword_lower = (
+            keyword.lower()
+        )
+
 
         if keyword_lower in text:
 
@@ -352,7 +954,11 @@ def quick_keyword_score(story):
                 keyword
             )
 
-    return score, matched
+
+    return (
+        score,
+        matched
+    )
 
 
 candidates = []
@@ -371,15 +977,19 @@ for story in ALL_SELECTED:
         )
     )
 
+
     if score > 0:
 
         candidates.append({
 
-            "story": story,
+            "story":
+                story,
 
-            "quick_score": score,
+            "quick_score":
+                score,
 
-            "quick_keywords": matched
+            "quick_keywords":
+                matched
 
         })
 
@@ -388,7 +998,8 @@ print()
 
 print(
     f"Keyword filter found "
-    f"{len(candidates)} relevant candidates."
+    f"{len(candidates)} "
+    "relevant candidates."
 )
 
 print()
@@ -439,12 +1050,15 @@ for index, candidate in enumerate(
 
 ):
 
-    story = candidate["story"]
+    story = candidate[
+        "story"
+    ]
 
 
     title = story.get(
 
         "story_title",
+
         ""
 
     ).strip()
@@ -453,41 +1067,55 @@ for index, candidate in enumerate(
     permalink = story.get(
 
         "story_permalink",
+
         ""
 
     )
 
 
-    publisher = story.get(
+    feed_title = story.get(
 
         "story_feed_title",
-        "Unknown Publisher"
 
+        ""
+
+    )
+
+
+    # --------------------------------------------------------
+    # IDENTIFY PUBLISHER / COUNTRY
+    # --------------------------------------------------------
+
+    publisher, country, timezone_name = (
+        identify_publisher(
+
+            permalink,
+
+            feed_title
+
+        )
     )
 
 
     try:
 
-        timestamp_utc = datetime.fromtimestamp(
+        timestamp_utc = (
+            datetime.fromtimestamp(
 
-            int(
-                story["story_timestamp"]
-            ),
+                int(
+                    story[
+                        "story_timestamp"
+                    ]
+                ),
 
-            tz=timezone.utc
+                tz=timezone.utc
 
+            )
         )
 
     except Exception:
 
         continue
-
-
-    country, timezone_name = (
-        infer_country_from_url(
-            permalink
-        )
-    )
 
 
     try:
@@ -518,10 +1146,16 @@ for index, candidate in enumerate(
     print(
 
         f"[{index}/{len(candidates)}] "
+        f"{publisher} · "
+        f"{country} · "
         f"{title}"
 
     )
 
+
+    # --------------------------------------------------------
+    # FULL ARTICLE
+    # --------------------------------------------------------
 
     body = fetch_full_article(
         permalink
@@ -533,25 +1167,41 @@ for index, candidate in enumerate(
         body = title
 
 
+    # --------------------------------------------------------
+    # FINAL RELEVANCE SCORE
+    # --------------------------------------------------------
+
     relevance_score, matched_keywords = (
         score_article(
+
             title,
+
             body
+
         )
     )
 
 
+    # --------------------------------------------------------
+    # ARTICLE OBJECT
+    # --------------------------------------------------------
+
     article = {
 
-        "title": title,
+        "title":
+            title,
 
-        "publisher": publisher,
+        "publisher":
+            publisher,
 
-        "url": permalink,
+        "url":
+            permalink,
 
-        "country": country,
+        "country":
+            country,
 
-        "timezone": timezone_name,
+        "timezone":
+            timezone_name,
 
         "published_utc":
             timestamp_utc.isoformat(),
@@ -568,7 +1218,8 @@ for index, candidate in enumerate(
         "matched_keywords":
             matched_keywords,
 
-        "body": body
+        "body":
+            body
 
     }
 
@@ -585,7 +1236,9 @@ for index, candidate in enumerate(
 processed_articles.sort(
 
     key=lambda article:
-        article["relevance_score"],
+        article[
+            "relevance_score"
+        ],
 
     reverse=True
 
@@ -606,16 +1259,27 @@ for article in processed_articles:
     ]:
 
         keyword_frequency[keyword] = (
+
             keyword_frequency.get(
+
                 keyword,
+
                 0
-            ) + 1
+
+            )
+
+            + 1
+
         )
+
+
 # ============================================================
 # TOP 100
 # ============================================================
 
-top_articles = processed_articles[:100]
+top_articles = (
+    processed_articles[:100]
+)
 
 
 # ============================================================
@@ -630,22 +1294,22 @@ output = {
         ).isoformat(),
 
     "article_count":
-    len(ALL_SELECTED),
+        len(ALL_SELECTED),
 
-"processed_article_count":
-    len(processed_articles),
+    "processed_article_count":
+        len(processed_articles),
 
-"relevant_article_count":
-    len(processed_articles),
+    "relevant_article_count":
+        len(processed_articles),
 
-"displayed_article_count":
-    len(top_articles),
+    "displayed_article_count":
+        len(top_articles),
 
-"keyword_frequency":
-    keyword_frequency,
+    "keyword_frequency":
+        keyword_frequency,
 
-"articles":
-    top_articles
+    "articles":
+        top_articles
 
 }
 
@@ -700,6 +1364,11 @@ print(
 print(
     "Articles fully processed:",
     len(processed_articles)
+)
+
+print(
+    "Articles displayed:",
+    len(top_articles)
 )
 
 print(
