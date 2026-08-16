@@ -160,38 +160,77 @@ def classify_article_regions(articles):
 
     prompt = f"""
 You are classifying international news articles
-for a geopolitical news dashboard.
+for a geopolitical intelligence dashboard.
 
-Assign EVERY article to exactly ONE of these regions:
+Assign EVERY article to exactly ONE region:
 
 1. asia
 2. europe_russia
 3. middle_east
 4. america_other
 
-Classification must be based on the PRIMARY SUBJECT
-of the article, not the publisher's country.
+IMPORTANT:
 
-Examples:
+Classify the article according to its PRIMARY SUBJECT
+and the geographic location of the main event.
 
-- A Guardian article about North Korea → asia
-- A Reuters article about Israel → middle_east
-- A French newspaper article about Ukraine → europe_russia
-- A Japanese newspaper article about the US → america_other
+DO NOT classify an article according to the publisher's
+country or the location of the news organization.
 
-If an article concerns multiple regions, choose the
-region that is most central to the story.
+For example:
 
-Return ONLY valid JSON in this exact format:
+- The Guardian article about North Korea → asia
+- Reuters article about Israel → middle_east
+- French newspaper article about Ukraine → europe_russia
+- Japanese newspaper article about the United States → america_other
+- Kyiv Independent article about Ukraine → europe_russia
+- British newspaper article about Russia → europe_russia
+- Korean newspaper article about Iran → middle_east
+
+REGIONAL DEFINITIONS:
+
+ASIA:
+China, Taiwan, Japan, North Korea, South Korea,
+India, Pakistan, Southeast Asia, Central Asia and
+other events primarily occurring in Asia.
+
+EUROPE / RUSSIA:
+Russia, Ukraine, Belarus, Poland, Baltic states,
+European countries, NATO in Europe, European Union,
+and European security or military affairs.
+
+MIDDLE EAST:
+Israel, Palestine, Gaza, Lebanon, Hezbollah, Syria,
+Iran, Iraq, Yemen, Saudi Arabia, Gulf states and
+other events primarily concerning the Middle East.
+
+AMERICA / OTHER:
+United States, Canada, Mexico, Central America,
+South America, Africa, Oceania, or stories whose
+primary geographic subject does not belong to the
+three categories above.
+
+If an article mentions several regions, identify the
+region containing the PRIMARY event or development.
+
+If an article is about a country's foreign policy,
+classify it according to the country or region that is
+the PRIMARY SUBJECT of the policy or action.
+
+Return ONLY valid JSON.
+
+Use the article index as the key and the region as the value.
+
+Example:
 
 {{
-    "0": "asia",
-    "1": "europe_russia",
+    "0": "europe_russia",
+    "1": "asia",
     "2": "middle_east",
     "3": "america_other"
 }}
 
-Here are the articles:
+ARTICLES:
 
 {json.dumps(
     article_list,
