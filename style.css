@@ -324,14 +324,14 @@ body {
 
     width: 100%;
 
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 .clock {
 
-    min-height: 78px;
+    min-height: 0;
 
-    padding: 10px;
+    padding: 5px 10px;
 
     background: #000000;
 }
@@ -346,7 +346,7 @@ body {
 
     color: #5f5f5f;
 
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 
     text-transform: uppercase;
 }
@@ -362,13 +362,13 @@ body {
 
     font-family: monospace;
 
-    font-size: 15px;
+    font-size: 14px;
 
     letter-spacing: 1px;
 
     color: #dddddd;
 
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .clock-zone {
@@ -381,7 +381,7 @@ body {
 
     color: #666666;
 
-    margin-bottom: 3px;
+    margin-bottom: 1px;
 }
 
 .clock-weather {
@@ -394,6 +394,7 @@ body {
 
     color: #777777;
 }
+
 
 
 
