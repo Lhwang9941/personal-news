@@ -241,118 +241,57 @@ document.getElementById(
         
         const regions = {
 
-            asia: [],
+    asia: [],
 
-            europe: [],
+    europe: [],
 
-            middleEast: [],
+    middleEast: [],
 
-            america: []
+    america: []
 
-        };
-
-
-        // ====================================================
-        // CLASSIFY ARTICLES
-        // ====================================================
-
-        articles.forEach(article => {
-
-            const country =
-                (article.country || "")
-                .toLowerCase();
+};
 
 
-            if (
+// ====================================================
+// USE GPT REGION CLASSIFICATION
+// ====================================================
 
-                country.includes("south korea") ||
-                country.includes("north korea") ||
-                country.includes("china") ||
-                country.includes("japan") ||
-                country.includes("taiwan") ||
-                country.includes("india") ||
-                country.includes("pakistan") ||
-                country.includes("indonesia") ||
-                country.includes("vietnam") ||
-                country.includes("thailand") ||
-                country.includes("philippines") ||
-                country.includes("singapore") ||
-                country.includes("malaysia") ||
-                country.includes("afghanistan") ||
-                country.includes("kazakhstan") ||
-                country.includes("uzbekistan")
+articles.forEach(article => {
 
-            ) {
-
-                regions.asia.push(article);
-
-            }
+    const region =
+        article.region ||
+        "america_other";
 
 
-            else if (
+    if (region === "asia") {
 
-                country.includes("russia") ||
-                country.includes("ukraine") ||
-                country.includes("belarus") ||
-                country.includes("france") ||
-                country.includes("germany") ||
-                country.includes("united kingdom") ||
-                country.includes("italy") ||
-                country.includes("spain") ||
-                country.includes("poland") ||
-                country.includes("lithuania") ||
-                country.includes("latvia") ||
-                country.includes("estonia") ||
-                country.includes("sweden") ||
-                country.includes("norway") ||
-                country.includes("finland") ||
-                country.includes("netherlands") ||
-                country.includes("belgium") ||
-                country.includes("romania") ||
-                country.includes("czech") ||
-                country.includes("hungary") ||
-                country.includes("greece") ||
-                country.includes("portugal")
+        regions.asia.push(article);
 
-            ) {
+    }
 
-                regions.europe.push(article);
+    else if (
+        region === "europe_russia"
+    ) {
 
-            }
+        regions.europe.push(article);
 
+    }
 
-            else if (
+    else if (
+        region === "middle_east"
+    ) {
 
-                country.includes("israel") ||
-                country.includes("palestine") ||
-                country.includes("lebanon") ||
-                country.includes("syria") ||
-                country.includes("iran") ||
-                country.includes("iraq") ||
-                country.includes("saudi") ||
-                country.includes("yemen") ||
-                country.includes("jordan") ||
-                country.includes("qatar") ||
-                country.includes("bahrain") ||
-                country.includes("kuwait") ||
-                country.includes("oman") ||
-                country.includes("uae") ||
-                country.includes("united arab")
+        regions.middleEast.push(article);
 
-            ) {
+    }
 
-                regions.middleEast.push(article);
+    else {
 
-            }
+        regions.america.push(article);
 
+    }
 
-            else {
-
-                regions.america.push(article);
-
-            }
-
-        });
+});
 
 
         // ====================================================
