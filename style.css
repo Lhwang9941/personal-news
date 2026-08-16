@@ -329,9 +329,9 @@ body {
 
 .clock {
 
-    min-height: 0;
+    min-height: 58;
 
-    padding: 5px 10px;
+    padding: 7px 10px;
 
     background: #000000;
 }
@@ -346,7 +346,7 @@ body {
 
     color: #5f5f5f;
 
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 
     text-transform: uppercase;
 }
@@ -368,7 +368,7 @@ body {
 
     color: #dddddd;
 
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .clock-zone {
@@ -381,7 +381,7 @@ body {
 
     color: #666666;
 
-    margin-bottom: 1px;
+    margin-bottom: 2px;
 }
 
 .clock-weather {
